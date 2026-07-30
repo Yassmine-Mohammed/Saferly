@@ -1,40 +1,87 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-body {
-    font-family: 'Playfair Display', sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+
 .bg-image {
     position: fixed;
     inset: 0;
-
     background-image: url("../images/bg-image-signup.jfif");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     filter: blur(3px);
     transform: scale(1.1);
-
     z-index: -1;
 }
-.container {
+
+h4 {
+    font-family: 'Outfit', Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* .container {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     padding: 30px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,.3);
-}
+} */
 .form-control {
     background: transparent;
     color: black;
     border: 1px solid #cccccc;
 }
 
+.form-box {
+    backdrop-filter: blur(18px);
+    background: rgba(255, 255, 255, .12);
+
+    border: 1px solid rgba(255, 255, 255, .2);
+
+    border-radius: 25px;
+
+    padding: 40px;
+}
+
 .form-control::placeholder {
     color: #666;
 }
+.login-footer{
+    margin-top:25px;
+    text-align:center;
+    color:#d8e6f5;
+    font-size:15px;
+}
 
-h4{
-    font-family: 'Playfair Display', Geneva, Tahoma, sans-serif;
-        -webkit-text-stroke: .5px black;
+.login-footer a{
+    color:#00b3ff;
+    font-weight:700;
+    text-decoration:none;
+    margin-left:6px;
+    transition:.3s;
+}
 
+.login-footer a:hover{
+    color:#7fd8ff;
+    text-shadow:0 0 10px rgba(0,179,255,.5);
+}
+.custom-error{
+
+    background:rgba(255,77,77,.15);
+
+    color:#ff8b8b;
+
+    border:1px solid rgba(255,77,77,.3);
+
+    padding:14px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    backdrop-filter:blur(10px);
+
+    animation:shake .4s;
 }
