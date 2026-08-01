@@ -1,3 +1,25 @@
+<?php
+include("../config/db.php");
+
+$users_query = "SELECT COUNT(*) AS total_users FROM users";
+$result = mysqli_query($con, $users_query);
+
+$users = mysqli_fetch_assoc($result);
+
+$total_users = $users['total_users'];
+
+
+$companies_query = "SELECT COUNT(*) AS total_companies FROM companies";
+$result = mysqli_query($con, $companies_query);
+
+$companies = mysqli_fetch_assoc($result);
+
+$total_companies = $companies['total_companies'];
+echo $total_companies;
+exit;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +73,7 @@
 
         <h3>Users</h3>
 
-        <p>0</p>
+        <p><?php echo $total_users;?></p>
 
     </div>
 
@@ -65,7 +87,7 @@
 
         <h3>Companies</h3>
 
-        <p>0</p>
+       <p><?php echo $total_companies; ?></p>
 
     </div>
 
