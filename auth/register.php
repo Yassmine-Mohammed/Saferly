@@ -2,7 +2,7 @@
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //connect database
-    $con = mysqli_connect("localhost:3307", "root", "", "safarly");
+    require_once "../config/db.php";
     if (!$con) {
         die("Connection Failed: " . mysqli_connect_error());
     }
