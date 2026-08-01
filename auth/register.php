@@ -3,9 +3,6 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //connect database
     require_once "../config/db.php";
-    if (!$con) {
-        die("Connection Failed: " . mysqli_connect_error());
-    }
     if (isset($_POST['register_user'])) {
         $fname = $_POST['user_Fname'];
         $lname = $_POST['user_Lname'];
@@ -14,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['user_email'];
         $password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
         $date = date("Y-m-d H:i:s");
-
 
         //check email
         $emailCheck = mysqli_query($con, "SELECT user_id FROM users WHERE email='$email'");
@@ -54,18 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //Query
             $query = "INSERT INTO `users`(`name`, `email`, `password`, `phone`, `created_at`) VALUES ('$username','$email','$password','$phoneno','$date')";
             $result = mysqli_query($con, $query);
-
-            if ($result) {
-                echo "Registered Successfully";
-            } else {
-                echo mysqli_error($con);
-            }
         }
         if (isset($_POST['register_company'])) {
             //Query
             $query = "INSERT INTO `companies`(`name`, `email`, `password`, `tax_number`) VALUES ('$Co_name','$Co_email','$Co_password','$Co_taxno')";
             $result = mysqli_query($con, $query);
-
         }
     }
 }

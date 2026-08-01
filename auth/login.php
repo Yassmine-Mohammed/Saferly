@@ -3,9 +3,7 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //connect database
     require_once "../config/db.php";
-    if (!$con) {
-        die("Connection Failed: " . mysqli_connect_error());
-    }
+
     if (isset($_POST['register_user'])) {
         $fname = $_POST['user_Fname'];
         $lname = $_POST['user_Lname'];
@@ -47,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //Query
             $query = "INSERT INTO `companies`(`name`, `email`, `password`, `tax_number`) VALUES ('$Co_name','$Co_email','$Co_password','$Co_taxno')";
             $result = mysqli_query($con, $query);
-
         }
     }
 }

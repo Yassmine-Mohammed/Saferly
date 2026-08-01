@@ -1,17 +1,18 @@
 <?php
 
-$host = "db62040.databaseasp.net";
-$user = "db62040";
-$password = "Yk3@?6Em2h-W";
-$database = "db62040";
-$port = 3306;
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-$con = mysqli_connect($host, $user, $password, $database, $port);
+try {
+    $con = mysqli_connect(
+        "db62034.public.databaseasp.net",
+        "db62040",
+        "Yk3@?6Em2h-W",
+        "db62040",
+        3306
+    );
 
-if (!$con) {
-    die("Connection Failed: " . mysqli_connect_error());
+    mysqli_set_charset($con, "utf8mb4");
+
+} catch (mysqli_sql_exception $e) {
+    die($e->getMessage());
 }
-
-mysqli_set_charset($con, "utf8mb4");
-
-?>
