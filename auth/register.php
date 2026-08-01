@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $error = "This Email is already registered.";
 
-    } elseif (mysqli_num_rows($phoneCheck) > 0) {
+    } elseif (mysqli_num_rows($taxCheck) > 0) {
 
         $error = "This Phone is already registered.";
 
