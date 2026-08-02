@@ -15,7 +15,20 @@ $result = mysqli_query($con, $companies_query);
 $companies = mysqli_fetch_assoc($result);
 
 $total_companies = $companies['total_companies'];
+$trips_query = "SELECT COUNT(*) AS total_trips FROM trips";
+$result = mysqli_query($con, $trips_query);
 
+$trips = mysqli_fetch_assoc($result);
+
+$total_trips = $trips['total_trips'];
+
+
+$bookings_query = "SELECT COUNT(*) AS total_bookings FROM bookings";
+$result = mysqli_query($con, $bookings_query);
+
+$bookings = mysqli_fetch_assoc($result);
+
+$total_bookings = $bookings['total_bookings'];
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +113,7 @@ $total_companies = $companies['total_companies'];
 
         <h3>Trips</h3>
 
-        <p>0</p>
+      <p><?php echo $total_trips;?></p>
 
     </div>
 
@@ -115,7 +128,7 @@ $total_companies = $companies['total_companies'];
 
         <h3>Bookings</h3>
 
-        <p>0</p>
+      <p><?php echo $total_bookings;?></p>
 
     </div>
 
