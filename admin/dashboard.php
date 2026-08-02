@@ -15,8 +15,6 @@ $result = mysqli_query($con, $companies_query);
 $companies = mysqli_fetch_assoc($result);
 
 $total_companies = $companies['total_companies'];
-echo $total_companies;
-exit;
 
 ?>
 
