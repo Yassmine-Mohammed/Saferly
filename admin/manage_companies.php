@@ -22,14 +22,30 @@ $result = mysqli_query($con, $query);
 
         <h2>Saferly</h2>
 
-        <ul>
-            <li>Dashboard</li>
-            <li>Users</li>
-            <li>Companies</li>
-            <li>Trips</li>
-            <li>Reports</li>
-        </ul>
+     <ul>
 
+    <li>
+        <a href="dashboard.php">Dashboard</a>
+    </li>
+
+    <li>
+        <a href="manage_users.php">Users</a>
+    </li>
+
+    <li>
+       <a class="active"
+       href="manage_companies.php">Companies</a>
+    </li>
+
+    <li>
+        <a href="manage_trips.php">Trips</a>
+    </li>
+
+    <li>
+        <a href="reports.php">Reports</a>
+    </li>
+
+</ul>
     </div>
 
     <div class="content">

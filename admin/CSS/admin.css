@@ -32,6 +32,8 @@ body {
 }
 
 
+/* Logo */
+
 .sidebar h2 {
 
     text-align: center;
@@ -45,44 +47,64 @@ body {
 }
 
 
+/* Menu */
 
 .sidebar ul {
 
     list-style: none;
 
-}
+    padding: 0;
 
+    margin: 0;
+
+}
 
 
 .sidebar li {
 
-    padding: 15px;
-
     margin-bottom: 12px;
-
-    border-radius: 12px;
-
-    cursor: pointer;
-
-    transition: .3s;
-
-    color: #cbd5e1;
 
 }
 
+/* Links */
 
+.sidebar a {
 
-.sidebar li:hover {
+    display: block;
 
-    background: rgba(255, 255, 255, .15);
+    padding: 15px;
 
-    color: white;
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    color: #d6c3a5;
+
+    transition: .3s;
+
+}
+
+/* Hover */
+
+.sidebar a:hover {
+
+    color: #d6c3a5;
+
+    background: rgba(214,195,165,0.15);
 
     transform: translateX(8px);
 
 }
 
 
+/* Current Page */
+.sidebar a.active {
+
+    color: white !important;
+
+    text-decoration: underline;
+
+}
 
 /* ===== Content ===== */
 
@@ -459,4 +481,120 @@ body {
 
 .users-table tr:hover {
     background: #f1f5f9;
+}
+.sidebar a {
+
+    text-decoration: none;
+
+    color: #cbd5e1;
+
+    display: block;
+
+}
+
+
+.sidebar a:hover {
+
+    color: white;
+
+}
+/* ===== Sidebar Final Fix ===== */
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.sidebar li {
+    list-style: none;
+}
+
+
+.sidebar a,
+.sidebar a:visited,
+.sidebar a:active {
+
+    text-decoration: none;
+
+    color: #cbd5e1 !important;
+
+    display: block;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    transition: .3s;
+
+}
+
+
+.sidebar a:hover {
+
+    color: white !important;
+
+    background: rgba(255,255,255,.15);
+
+    transform: translateX(8px);
+
+}
+
+.sidebar ul {
+
+    list-style: none !important;
+
+    padding: 0;
+
+    margin: 0;
+
+}
+.sidebar a,
+.sidebar a:visited,
+.sidebar a:active {
+
+    color: #cbd5e1 !important;
+
+}
+
+
+.sidebar a:hover {
+
+    color: #ffffff !important;
+
+}
+.sidebar a.active {
+
+    color: #d6c3a5 !important;
+
+    text-decoration: underline !important;
+
+}
+/* Final Sidebar Style */
+
+.sidebar a,
+.sidebar a:visited,
+.sidebar a:active {
+
+    color: #d6c3a5 !important;
+
+    text-decoration: none !important;
+
+}
+
+
+.sidebar a:hover {
+
+    color: #ffffff !important;
+
+}
+
+
+.sidebar a.active {
+
+    color: #ffffff !important;
+
+    text-decoration: underline !important;
+
 }
