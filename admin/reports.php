@@ -10,7 +10,17 @@ $companies = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(*) AS total FRO
 $trips = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(*) AS total FROM trips"));
 
 $bookings = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(*) AS total FROM bookings"));
+$top_company = mysqli_query($con, "
+SELECT companies.name, COUNT(trips.trip_id) AS total_trips
+FROM companies
+LEFT JOIN trips
+ON companies.company_id = trips.company_id
+GROUP BY companies.company_id
+ORDER BY total_trips DESC
+LIMIT 1
+");
 
+$top_company = mysqli_fetch_assoc($top_company);
 
 ?>
 <!DOCTYPE html>
@@ -54,7 +64,7 @@ $bookings = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(*) AS total FROM
 
     <li>
         <a class="active"
-       href="rports.php">Reports</a>
+       href="reports.php">Reports</a>
     </li>
 
 </ul>
@@ -116,11 +126,29 @@ $bookings = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(*) AS total FROM
 </div>
 
 
+<div class="box">
+
+    <h2>Top Company</h2>
+
+    <?php if($top_company && $top_company['total_trips'] > 0){ ?>
+
+        <p>
+            <strong><?php echo $top_company['name']; ?></strong><br>
+            Total Trips:
+            <?php echo $top_company['total_trips']; ?>
+        </p>
+
+    <?php } else { ?>
+
+        <p>No data available.</p>
+
+    <?php } ?>
+
+</div>
 </div>
 
 
 </div>
-
 
 </body>
 

@@ -63,6 +63,7 @@ $result = mysqli_query($con, $query);
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Actions</th>
         </tr>
 
 
@@ -75,8 +76,54 @@ $result = mysqli_query($con, $query);
             <td><?php echo $user['name']; ?></td>
 
             <td><?php echo $user['email']; ?></td>
+<td>
 
-            <td><?php echo $user['role']; ?></td>
+<form action="update_role.php" method="POST">
+
+<input type="hidden" 
+name="user_id" 
+value="<?php echo $user['user_id']; ?>">
+
+
+<select name="role">
+
+<option value="user"
+<?php if($user['role']=="user") echo "selected"; ?>>
+User
+</option>
+
+
+<option value="admin"
+<?php if($user['role']=="admin") echo "selected"; ?>>
+Admin
+</option>
+
+
+</select>
+
+
+<button type="submit">
+Update
+</button>
+
+
+</form>
+
+</td>
+           <td>
+
+<a href="view_user.php?id=<?php echo $user['user_id']; ?>">
+    View
+</a>
+
+|
+
+<a href="delete_user.php?id=<?php echo $user['user_id']; ?>"
+onclick="return confirm('Are you sure?');">
+    Delete
+</a>
+
+</td>
 
         </tr>
 

@@ -75,24 +75,33 @@ $result = mysqli_query($con, $query);
         <td><?php echo $company['tax_number']; ?></td>
 
    <td><?php echo $company['status']; ?></td>
-
 <td>
 
-<?php
-if($company['status'] == "not_verified"){
-?>
-
-<a href="approve_company.php?id=<?php echo $company['company_id']; ?>">
-    Approve
+<a href="view_company.php?id=<?php echo $company['company_id']; ?>">
+    View
 </a>
 
-<?php
-}else{
-    echo "verified";
-}
-?>
+
+<?php if($company['status']=="not_verified"){ ?>
+
+|
+<a href="approve_company.php?id=<?php echo $company['company_id']; ?>">
+    Verify
+</a>
+
+
+<?php } else { ?>
+
+|
+<a href="reject_company.php?id=<?php echo $company['company_id']; ?>">
+    Reject
+</a>
+
+<?php } ?>
+
 
 </td>
+
 
     </tr>
 

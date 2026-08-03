@@ -44,7 +44,7 @@ $result = mysqli_query($con, $query);
 
     <li>
        <a class="active"
-       href="manage_teips.php">Trips</a>
+       href="manage_trips.php">Trips</a>
     </li>
 
     <li>
@@ -94,7 +94,14 @@ $result = mysqli_query($con, $query);
         <td><?php echo $trip['start_date']; ?></td>
 
         <td><?php echo $trip['status']; ?></td>
-        <td>
+     
+<td>
+
+<a href="view_trip.php?id=<?php echo $trip['trip_id']; ?>">
+    View
+</a>
+
+|
 
 <?php
 if($trip['status'] == "active"){
@@ -116,13 +123,16 @@ if($trip['status'] == "active"){
 }
 ?>
 
+|
+
+<a href="delete_trip.php?id=<?php echo $trip['trip_id']; ?>"
+onclick="return confirm('Are you sure?');">
+    Delete
+</a>
+
 </td>
-
-    </tr>
-
-    <?php } ?>
-
-
+</tr>
+<?php } ?>
 </table>
 </div>
 
