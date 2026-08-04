@@ -1,5 +1,5 @@
 <?php
-require "config/db.php";
+require_once "config/db.php";
 $sql = "SELECT * FROM trips";
 $result = mysqli_query($con, $sql);
 ?>
