@@ -1,3 +1,36 @@
+<?php
+include("../config/db.php");
+
+$users_query = "SELECT COUNT(*) AS total_users FROM users";
+$result = mysqli_query($con, $users_query);
+
+$users = mysqli_fetch_assoc($result);
+
+$total_users = $users['total_users'];
+
+
+$companies_query = "SELECT COUNT(*) AS total_companies FROM companies";
+$result = mysqli_query($con, $companies_query);
+
+$companies = mysqli_fetch_assoc($result);
+
+$total_companies = $companies['total_companies'];
+$trips_query = "SELECT COUNT(*) AS total_trips FROM trips";
+$result = mysqli_query($con, $trips_query);
+
+$trips = mysqli_fetch_assoc($result);
+
+$total_trips = $trips['total_trips'];
+
+
+$bookings_query = "SELECT COUNT(*) AS total_bookings FROM bookings";
+$result = mysqli_query($con, $bookings_query);
+
+$bookings = mysqli_fetch_assoc($result);
+
+$total_bookings = $bookings['total_bookings'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,14 +48,30 @@
 
         <h2>Saferly</h2>
 
-        <ul>
-            <li>Dashboard</li>
-            <li>Users</li>
-            <li>Companies</li>
-            <li>Trips</li>
-            <li>Reports</li>
-        </ul>
+   <ul>
 
+    <li>
+       <a class="active"
+       href="dashboard.php">Dashboard</a>
+    </li>
+
+    <li>
+        <a href="manage_users.php">Users</a>
+    </li>
+
+    <li>
+        <a href="manage_companies.php">Companies</a>
+    </li>
+
+    <li>
+        <a href="manage_trips.php">Trips</a>
+    </li>
+
+    <li>
+        <a href="reports.php">Reports</a>
+    </li>
+
+</ul>
     </div>
 
 
@@ -51,7 +100,7 @@
 
         <h3>Users</h3>
 
-        <p>0</p>
+        <p><?php echo $total_users;?></p>
 
     </div>
 
@@ -65,7 +114,7 @@
 
         <h3>Companies</h3>
 
-        <p>0</p>
+       <p><?php echo $total_companies; ?></p>
 
     </div>
 
@@ -80,7 +129,7 @@
 
         <h3>Trips</h3>
 
-        <p>0</p>
+      <p><?php echo $total_trips;?></p>
 
     </div>
 
@@ -95,7 +144,7 @@
 
         <h3>Bookings</h3>
 
-        <p>0</p>
+      <p><?php echo $total_bookings;?></p>
 
     </div>
 

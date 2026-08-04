@@ -1,0 +1,140 @@
+<?php
+include("../config/db.php");
+
+$query = "SELECT * FROM users";
+$result = mysqli_query($con, $query);
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+
+    <link rel="stylesheet" href="CSS/admin.css">
+</head>
+
+<body>
+    
+
+    <div class="sidebar">
+
+        <h2>Saferly</h2>
+
+    <ul>
+
+    <li>
+        <a href="dashboard.php">Dashboard</a>
+    </li>
+
+    <li>
+        <a class="active"
+         href="manage_users.php">Users</a>
+    </li>
+
+    <li>
+        <a href="manage_companies.php">Companies</a>
+    </li>
+
+    <li>
+        <a href="manage_trips.php">Trips</a>
+    </li>
+
+    <li>
+        <a href="reports.php">Reports</a>
+    </li>
+
+</ul>
+    </div>
+
+
+    <div class="content">
+
+
+
+    <h1>Manage Users</h1>
+
+    <table class="users-table">
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+
+
+        <?php while($user = mysqli_fetch_assoc($result)) { ?>
+
+        <tr>
+
+            <td><?php echo $user['user_id']; ?></td>
+
+            <td><?php echo $user['name']; ?></td>
+
+            <td><?php echo $user['email']; ?></td>
+<td>
+
+<form action="update_role.php" method="POST">
+
+<input type="hidden" 
+name="user_id" 
+value="<?php echo $user['user_id']; ?>">
+
+
+<select name="role">
+
+<option value="user"
+<?php if($user['role']=="user") echo "selected"; ?>>
+User
+</option>
+
+
+<option value="admin"
+<?php if($user['role']=="admin") echo "selected"; ?>>
+Admin
+</option>
+
+
+</select>
+
+
+<button type="submit">
+Update
+</button>
+
+
+</form>
+
+</td>
+           <td>
+
+<a href="view_user.php?id=<?php echo $user['user_id']; ?>">
+    View
+</a>
+
+|
+
+<a href="delete_user.php?id=<?php echo $user['user_id']; ?>"
+onclick="return confirm('Are you sure?');">
+    Delete
+</a>
+
+</td>
+
+        </tr>
+
+        <?php } ?>
+
+
+    </table>
+
+
+</div>
+
+</body>
+
+</html>
