@@ -82,7 +82,7 @@ $result = mysqli_query($con, $sql);
                     while ($trip = mysqli_fetch_assoc($result)) {
                         ?>
                         <div class="trip-card">
-                            <img src="uploads/trips/<?= $trip['image'] ?>" alt="<?= $trip['title'] ?>">
+                            <img src="images/trips/<?= $trip['image'] ?>" alt="<?= $trip['title'] ?>">
 
                             <h3><?= $trip['title'] ?></h3>
 
@@ -106,7 +106,7 @@ $result = mysqli_query($con, $sql);
             </div>
         </div>
     </main>
-    <?php include_once("../includes/header.php"); ?>
+    <?php include_once("../includes/footer.php"); ?>
 </body>
 
 </html>
