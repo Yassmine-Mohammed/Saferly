@@ -62,7 +62,7 @@ body, html {
     background-size: cover; min-height: 90vh;
 }
 .content3 h2 { color: #fff; font-size: 42px; margin-bottom: 20px; margin-top: 50px;}
-.content3 p{ color: #a9a9a9; margin-bottom: 80px; }
+.content3 p{ color: #7d7d7d; margin-bottom: 80px; }
 .trust-travel{ width: 100%; display: flex; justify-content: center; flex-direction: row; gap: 50px; flex-wrap: wrap; }
 .trust1 , .trust2 , .trust3 {
     background-color: #fff; width: 250px; height: 300px;

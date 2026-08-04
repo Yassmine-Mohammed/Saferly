@@ -47,7 +47,7 @@ if (session_status() === PHP_SESSION_NONE) {
         </nav>
 
         <div class="header-right">
-            <?php if(!isset($_SESSION['user_id'])): ?>
+            <?php if(!isset($_SESSION['user'])): ?>
                 <!-- يظهر للزوار -->
                 <a href="../auth/login.php" class="btn-login">Login</a>
                 <a href="../auth/register.php" class="btn-signup">Sign Up</a>

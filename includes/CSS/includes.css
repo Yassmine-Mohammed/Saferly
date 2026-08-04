@@ -79,7 +79,7 @@ nav ul li a:hover { color: #808080; }
 }
 
 .btn-logout {
-    color: #ff4d4d; /* لون أحمر لزر الخروج ليكون واضحاً */
+    color: #fff; /* لون أحمر لزر الخروج ليكون واضحاً */
     text-decoration: none;
     font-weight: bold;
     display: flex;
@@ -89,12 +89,12 @@ nav ul li a:hover { color: #808080; }
 }
 
 .btn-logout i {
-    color: #ff4d4d;
+    color: #fff;
     font-size: 18px;
 }
 
 .btn-logout:hover, .btn-logout:hover i {
-    color: #ff1a1a;
+    color: #808080;
 }
 /* ========================================= */
 
