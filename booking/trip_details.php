@@ -3,7 +3,7 @@
 // ==========================================
 // Connect to Database
 // ==========================================
-require "config/db.php";
+require "../config/db.php";
 
 
 // ==========================================
@@ -38,7 +38,7 @@ if(mysqli_num_rows($result) > 0){
     <title>Trip Details</title>
 
     <!-- CSS File -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 
@@ -47,7 +47,7 @@ if(mysqli_num_rows($result) > 0){
 <div class="details-container">
 
     <div class="trip-image">
-    <img src="assets/images/<?php echo $trip['image']; ?>" alt="">
+    <img src="../assets/images/<?php echo $trip['image']; ?>" alt="">
     <div class="overlay"></div>
 </div>
 

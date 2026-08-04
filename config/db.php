@@ -16,6 +16,4 @@ try {
 } catch (mysqli_sql_exception $e) {
 
     die($e->getMessage());
-
-    die($e->getMessage());
 }
