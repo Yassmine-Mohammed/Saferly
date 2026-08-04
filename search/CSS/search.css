@@ -4,7 +4,7 @@ body, html {
 }
 /* الصفحة الرئيسية */
 .content1{
-    background-image: url("../images/suitcase-travel-summer-holidays-vacation-travelers-luggage\ 1.jpg");
+    background-image: url("../images/Gemini_Generated_Image_37kbcq37kbcq37kb.png");
     background-size: cover; background-position: center; background-repeat: no-repeat;
     min-height: 90vh;
 }
@@ -117,7 +117,7 @@ body, html {
     font-size: 28px;
 }
 
-.search-price button {
+.search-price button,.place-card button {
     background-color: teal;
     color: #fff;
     border: none;
@@ -130,9 +130,12 @@ body, html {
     width: 100%;
 }
 
-.search-price button:hover {
+.search-price button ,.place-card button:hover {
     background-color: #006666;
 }
+/* compare */
+
+
 
 /* للموبايل */
 @media (max-width: 768px) {

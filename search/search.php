@@ -3,7 +3,7 @@ session_start();
 require_once("../config/db.php");
 include("../includes/header.php");
 
-// بناء استعلام البحث بناءً على البيانات القادمة من الـ index
+//  index بناء استعلام البحث بناءً على البيانات القادمة من الـ 
 $where_clauses = ["status = 'active'"];
 
 if (isset($_GET['destination']) && !empty($_GET['destination'])) {
