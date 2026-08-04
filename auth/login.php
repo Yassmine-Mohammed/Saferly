@@ -6,7 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['login_user'])) {
         $email = $_POST['user_email'];
-        $password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
 
         $query = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
         $result = mysqli_query($con, $query);
@@ -61,9 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="bg-image"></div>
-    <div class="logo text-center  justify-content-center"><img src="images\ChatGPT Image Jul 31, 2026, 12_42_35 AM.png"
+    <div class="logo text-center  justify-content-center"><img src="images\SaferlyLogo.png"
             width=200px>
-        <img src="images\ChatGPT Image Jul 31, 2026, 01_08_17 AM.png" width=350px>
+        <img src="images\NameWithSlugan.png" width=350px>
     </div>
 
     <nav>
@@ -95,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Login
                     </button>
                     <div class="login-footer text-center mt-2">
-                        <span>Forget Password?</span>
-                        <a href="edit_profile.php">reset it!</a>
+                        <span>Don't have an account</span>
+                        <a href="register.php">Register Now!</a>
                     </div>
                 </form>
             </div>
@@ -113,8 +112,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Login
                     </button>
                     <div class="login-footer text-center mt-2">
-                        <span>Forget Password?</span>
-                        <a href="edit_profile.php">reset it!</a>
+                        <span>Don't have an account</span>
+                        <a href="register.php">Register Now!</a>
                     </div>
                 </form>
             </div>

@@ -6,6 +6,16 @@ if (session_status() === PHP_SESSION_NONE) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saferly</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +38,8 @@ if (session_status() === PHP_SESSION_NONE) {
         
         <nav>
             <ul>
+
+                <!-- not <li><a href="../index.php">Home</a></li> -->
                 <li><a href="../search/index.php">Home</a></li>
                 <li><a href="../search/filters.php">Trips</a></li>
                 <li><a href="../about/index.php">About</a></li>
