@@ -1,5 +1,7 @@
 <?php
 require "config/db.php";
+require "../config/db.php";
+
 $sql = "SELECT * FROM trips";
 $result = mysqli_query($con, $sql);
 ?>
@@ -8,7 +10,7 @@ $result = mysqli_query($con, $sql);
 <html>
 <head>
     <title>Trips</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
@@ -18,7 +20,7 @@ $result = mysqli_query($con, $sql);
 
 <div class="trip-card">
 
-    <img src="assets/images/<?php echo $trip['image']; ?>" alt="Trip">
+    <img src="../assets/images/<?php echo $trip['image']; ?>" alt="Trip">
 
     <h2><?php echo $trip['trip_name']; ?></h2>
 

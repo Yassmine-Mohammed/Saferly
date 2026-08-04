@@ -4,7 +4,7 @@ body, html {
 }
 /* الصفحة الرئيسية */
 .content1{
-    background-image: url("../images/suitcase-travel-summer-holidays-vacation-travelers-luggage\ 1.jpg");
+    background-image: url("../images/Gemini_Generated_Image_37kbcq37kbcq37kb.png");
     background-size: cover; background-position: center; background-repeat: no-repeat;
     min-height: 90vh;
 }
@@ -62,7 +62,7 @@ body, html {
     background-size: cover; min-height: 90vh;
 }
 .content3 h2 { color: #fff; font-size: 42px; margin-bottom: 20px; margin-top: 50px;}
-.content3 p{ color: #a9a9a9; margin-bottom: 80px; }
+.content3 p{ color: #7d7d7d; margin-bottom: 80px; }
 .trust-travel{ width: 100%; display: flex; justify-content: center; flex-direction: row; gap: 50px; flex-wrap: wrap; }
 .trust1 , .trust2 , .trust3 {
     background-color: #fff; width: 250px; height: 300px;
@@ -117,7 +117,7 @@ body, html {
     font-size: 28px;
 }
 
-.search-price button {
+.search-price button,.place-card button {
     background-color: teal;
     color: #fff;
     border: none;
@@ -130,9 +130,12 @@ body, html {
     width: 100%;
 }
 
-.search-price button:hover {
+.search-price button ,.place-card button:hover {
     background-color: #006666;
 }
+/* compare */
+
+
 
 /* للموبايل */
 @media (max-width: 768px) {

@@ -2,11 +2,11 @@
 session_start();
 require_once("../config/db.php");
 
-// جلب أحدث الرحلات
+//  أحدث الرحلات
 $trips_query = "SELECT * FROM trips WHERE status = 'active' LIMIT 6";
 $trips_result = mysqli_query($con, $trips_query);
 
-// جلب آراء العملاء (التقييمات) مع اسم المستخدم
+//  آراء العملاء (التقييمات) مع اسم المستخدم
 $reviews_query = "SELECT reviews.*, users.name AS user_name 
                   FROM reviews 
                   JOIN users ON reviews.user_id = users.user_id 
@@ -41,7 +41,7 @@ include("../includes/header.php");
             <p>Explore the world with what you love beautiful natural beauty.</p>
         </div>
         <div class="nav-btn-card">
-            <button class="nav-btn prev">&#10094;</button>
+            
             <div class="suggestions">
                 <?php while($trip = mysqli_fetch_assoc($trips_result)): ?>
                     <div class="place-card">
@@ -52,11 +52,14 @@ include("../includes/header.php");
                             <p><i class="fa-regular fa-clock"></i> <?php echo htmlspecialchars($trip['duration_days']); ?> Days</p>
                             <p><i class="fa-solid fa-star" style="color: #f39c12;"></i> <?php echo htmlspecialchars($trip['hotel_level']); ?> Stars Hotel</p>
                             <h4 style="margin-top: 10px; color: #27ae60;"><?php echo htmlspecialchars($trip['price']); ?> EGP</h4>
+                            <a href="../booking/trip_details.php?id=<?php echo $trip['trip_id']; ?>" style="text-decoration: none;">
+                                <button type="button">View Details</button>
+                            </a>
                         </div>
                     </div>
                 <?php endwhile; ?>
             </div>
-            <button class="nav-btn next">&#10095;</button>
+            
         </div>
     </div>
 
@@ -67,17 +70,17 @@ include("../includes/header.php");
             <div class="trust1">
                 <i class="fa-solid fa-people-group" style="font-size: 40px; margin: 25px 0;"></i>
                 <h3>Best Service</h3>
-                <p style="text-align: center; padding: 0 15px;">our service is reliable and convenient, our service is quality</p>
+                <p style="text-align: center; padding: 0 15px;">We are committed to providing exceptional customer support and a seamless travel experience from start to finish.</p>
             </div>
             <div class="trust2">
-                <i class="fa-brands fa-cash-app" style="font-size: 40px; margin: 25px 0;"></i>
+                <i class="fa-solid fa-hand-holding-dollar" style="font-size: 40px; margin: 25px 0;"></i>
                 <h3>Price guarantee</h3>
-                <p style="text-align: center; padding: 0 15px;">our service is reliable and convenient, our service is quality</p>
+                <p style="text-align: center; padding: 0 15px;">Enjoy the best rates available. We ensure competitive pricing so you can travel without breaking the bank.</p>
             </div>
             <div class="trust3">
                 <i class="fa-solid fa-trophy" style="font-size: 40px; margin: 25px 0;"></i>
                 <h3>Handpicked Hotels</h3>
-                <p style="text-align: center; padding: 0 15px;">our service is reliable and convenient, our service is quality</p>
+                <p style="text-align: center; padding: 0 15px;">We carefully select and review all our accommodations to guarantee comfort, quality, and an unforgettable stay.</p>
             </div>
         </div>
     </div>
@@ -86,7 +89,7 @@ include("../includes/header.php");
         <h4>TESTIMONIAL</h4>
         <h2>What Our Clients Say</h2>
         <div class="nav-btn-card">
-            <button class="nav-btn prev">&#10094;</button>
+            
             <div class="suggestions">
                 <!-- PHP لطباعة آراء العملاء -->
                 <?php while($review = mysqli_fetch_assoc($reviews_result)): ?>
@@ -106,7 +109,7 @@ include("../includes/header.php");
                     </div>
                 <?php endwhile; ?>
             </div>
-            <button class="nav-btn next">&#10095;</button>
+            
         </div>
     </div>
 </main>

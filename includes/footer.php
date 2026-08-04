@@ -1,5 +1,9 @@
 <footer>
-    <img src="../images/logo.png" alt="Safarly Logo">
+    <div class="logo">
+            <a href="../index.php">
+                <img src="../includes/images/logo.png" alt="Safarly Logo">
+            </a>
+        </div>
     <div class="contact">
         <h3>Contact Us</h3>
         <h4><i class="fa-solid fa-location-dot"></i> 732, Cairo</h4>

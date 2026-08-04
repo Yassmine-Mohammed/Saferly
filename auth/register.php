@@ -33,6 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //Query
             $query = "INSERT INTO `users`(`name`, `email`, `password`, `phone`, `created_at`) VALUES ('$username','$email','$password','$phoneno','$date')";
             $result = mysqli_query($con, $query);
+
+            //move to login page
+            header("Location: login.php");
+            exit();
         }
 
     }
@@ -68,6 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //Query
             $query = "INSERT INTO `companies`(`name`, `email`, `password`, `tax_number`) VALUES ('$Co_name','$Co_email','$Co_password','$Co_taxno')";
             $result = mysqli_query($con, $query);
+
+            //move to login page
+            header("Location: login.php");
+            exit();
         }
 
     }
@@ -87,9 +95,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="bg-image"></div>
-    <div class="logo text-center  justify-content-center"><img src="images\ChatGPT Image Jul 31, 2026, 12_42_35 AM.png"
+    <div class="logo text-center  justify-content-center"><img src="images\SaferlyLogo.png"
             width=200px>
-        <img src="images\ChatGPT Image Jul 31, 2026, 01_08_17 AM.png" width=350px>
+        <img src="images\NameWithSlugan.png" width=350px>
     </div>
 
     <nav>
