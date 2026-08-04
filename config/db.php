@@ -3,7 +3,6 @@
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
-
     $con = mysqli_connect(
         "db62034.public.databaseasp.net",
         "db62040",
@@ -18,4 +17,5 @@ try {
 
     die($e->getMessage());
 
+    die($e->getMessage());
 }
