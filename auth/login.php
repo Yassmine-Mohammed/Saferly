@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (password_verify($_POST['user_password'], $row['password'])) {
                 $_SESSION['user'] = $row;
-                header("Location: profile.php");
+                header("Location:../search/index.php");
                 exit();
             } else {
                 $error = "Incorrect password";
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (password_verify($_POST['company_password'], $row['password'])) {
                 $_SESSION['company'] = $row;
-                header("Location: ../companies/company_profile.php");
+                header("Location:../search/index.php");
                 exit();
             } else {
                 $error = "Incorrect password";
