@@ -1,6 +1,8 @@
 <?php
 
-require "../config/db.php";
+// Connect to Database
+
+require "config/db.php";
 $id = $_GET['id'];
 
 $sql = "SELECT * FROM trips WHERE trip_id = $id";
@@ -30,7 +32,7 @@ if(mysqli_num_rows($result) > 0){
     <title>Trip Details</title>
 
     <!-- CSS File -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 
@@ -39,7 +41,7 @@ if(mysqli_num_rows($result) > 0){
 <div class="details-container">
 
     <div class="trip-image">
-    <img src="../assets/images/<?php echo $trip['image']; ?>" alt="">
+    <img src="assets/images/<?php echo $trip['image']; ?>" alt="">
     <div class="overlay"></div>
 </div>
 
@@ -69,21 +71,26 @@ if(mysqli_num_rows($result) > 0){
 
         <h3>Status:</h3>
         <p><?php echo $trip['status']; ?></p>
-<!-- زرار الحجز الأساسي -->
-    <a href="booking.php?trip_id=<?php echo $trip['trip_id']; ?>">
-        <button type="button" class="book-btn">Book Now</button>
-    </a>
 
-    <!-- أزرار المفضلة والتقييم بنفس ستايل وزرار البوك ناو -->
-    <a href="favourites.php?trip_id=<?php echo $trip['trip_id']; ?>">
-        <button type="button" class="book-btn" style="background-color: #e74c3c; margin-top: 10px;">Add to Favourites ❤️</button>
-    </a>
-
-    <a href="reviews.php?trip_id=<?php echo $trip['trip_id']; ?>">
-        <button type="button" class="book-btn" style="background-color: #f39c12; margin-top: 10px;">Add Review ⭐</button>
-    </a>
+       <a href="booking/booking.php?trip_id=<?php echo $trip['trip_id']; ?>">
+    <button type="button" class="book-btn">Book Now</button>
+</a>
     </div>
 
+       <div class="trip-buttons" style="margin-top: 20px;">
+        
+
+           <!-- 2. زرار المراجعات -->
+           <a href="booking/reviews.php?trip_id=<?php echo $trip['trip_id']; ?>">
+               <button type="button" class="book-btn" style="width: 100%; background-color: #ff9900; color: #000; margin-bottom: 10px;">View & Add Reviews</button>
+           </a>
+
+           <!-- 3. زرار المفضلة -->
+        
+        <a href="booking/favourites.php?trip_id=<?php echo $trip['trip_id']; ?>">
+        <button type="button" class="book-btn" style="width: 100%; background-color: #ff9900; color: #000;">Add to Favorites ❤️</button>
+    </a>
+</div>
 </div>
 
 </body>
