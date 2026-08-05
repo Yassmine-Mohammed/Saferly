@@ -10,7 +10,7 @@ WHERE company_id=$id";
 
 mysqli_query($con, $query);
 
-header("Location: manage_companies.php");
+header("Location: manage_companies.php?success=company_rejected");
 
 exit();
 

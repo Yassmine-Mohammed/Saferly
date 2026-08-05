@@ -8,7 +8,7 @@ $query = "UPDATE trips SET status='active' WHERE trip_id=$id";
 
 mysqli_query($con, $query);
 
-header("Location: manage_trips.php");
+header("Location: manage_trips.php?success=trip_enabled");
 
 exit();
 
