@@ -17,9 +17,5 @@ try {
     mysqli_set_charset($con, "utf8mb4");
 
 } catch (mysqli_sql_exception $e) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 24cb34c22728456cd2a20e344201437e7efcbd91
     die($e->getMessage());
 }

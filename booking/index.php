@@ -1,5 +1,4 @@
 <?php
-require "config/db.php";
 require "../config/db.php";
 
 $sql = "SELECT * FROM trips";
@@ -27,8 +26,7 @@ $result = mysqli_query($con, $sql);
     <p><?php echo $trip['destination']; ?></p>
 
     <p><?php echo $trip['price']; ?> EGP</p>
-
-    <a href="trip_details.php?id=<?php echo $trip['trip_id']; ?>">
+<a href="/saferly/booking/trip_details.php?id=<?php echo $trip['trip_id']; ?>">
         <button>View Details</button>
     </a>
 

@@ -1,14 +1,6 @@
 <?php
 
-// ==========================================
-// Connect to Database
-// ==========================================
 require "../config/db.php";
-
-
-// ==========================================
-// Get Trip Data
-// ==========================================
 $id = $_GET['id'];
 
 $sql = "SELECT * FROM trips WHERE trip_id = $id";
@@ -77,10 +69,19 @@ if(mysqli_num_rows($result) > 0){
 
         <h3>Status:</h3>
         <p><?php echo $trip['status']; ?></p>
+<!-- زرار الحجز الأساسي -->
+    <a href="booking.php?trip_id=<?php echo $trip['trip_id']; ?>">
+        <button type="button" class="book-btn">Book Now</button>
+    </a>
 
-       <a href="booking/booking.php?trip_id=<?php echo $trip['trip_id']; ?>">
-    <button type="button" class="book-btn">Book Now</button>
-</a>
+    <!-- أزرار المفضلة والتقييم بنفس ستايل وزرار البوك ناو -->
+    <a href="favourites.php?trip_id=<?php echo $trip['trip_id']; ?>">
+        <button type="button" class="book-btn" style="background-color: #e74c3c; margin-top: 10px;">Add to Favourites ❤️</button>
+    </a>
+
+    <a href="reviews.php?trip_id=<?php echo $trip['trip_id']; ?>">
+        <button type="button" class="book-btn" style="background-color: #f39c12; margin-top: 10px;">Add Review ⭐</button>
+    </a>
     </div>
 
 </div>
