@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../config/db.php";
+require "../config/db.php";
 
 // جلب الـ user_id الصحيح
 if (isset($_SESSION['user_id'])) {

@@ -63,6 +63,22 @@ if(mysqli_num_rows($result) > 0){
         <p><?php echo htmlspecialchars($trip['start_date']); ?></p>
 
         <h3>Status:</h3>
+<<<<<<< HEAD
+        <p><?php echo $trip['status']; ?></p>
+<!-- زرار الحجز الأساسي -->
+    <a href="booking.php?trip_id=<?php echo $trip['trip_id']; ?>">
+        <button type="button" class="book-btn">Book Now</button>
+    </a>
+
+    <!-- أزرار المفضلة والتقييم بنفس ستايل وزرار البوك ناو -->
+    <a href="favourites.php?trip_id=<?php echo $trip['trip_id']; ?>">
+        <button type="button" class="book-btn" style="background-color: #e74c3c; margin-top: 10px;">Add to Favourites ❤️</button>
+    </a>
+
+    <a href="reviews.php?trip_id=<?php echo $trip['trip_id']; ?>">
+        <button type="button" class="book-btn" style="background-color: #f39c12; margin-top: 10px;">Add Review ⭐</button>
+    </a>
+=======
         <p><?php echo htmlspecialchars($trip['status']); ?></p>
 
     <!-- زرار الحجز الأساسي -->
@@ -81,6 +97,7 @@ if(mysqli_num_rows($result) > 0){
         </a>
         </div>
         </a>
+>>>>>>> d96fb7ecc9c28030730b279fd0270efcf0c85748
     </div>
 
 </div>

@@ -10,10 +10,11 @@ body{
 }
 
 .profile-page{
-    min-height:80vh;
+    flex:1;
     display:flex;
+    flex-direction: row;
     justify-content:center;
-    align-items:center;
+    align-items:flex-start;
     padding:50px 20px;
 }
 
@@ -29,7 +30,7 @@ body{
 }
 
 .UP_photo img{
-    width:180px;
+    width:200px;
     height:180px;
     border-radius:50%;
     object-fit:cover;
@@ -51,40 +52,81 @@ body{
     font-size:18px;
     margin-bottom:30px;
 }
-
+.profile{
+    display:flex;
+}
 .profile-buttons{
     display:flex;
     gap:15px;
     flex-wrap:wrap;
 }
-
-.profile-buttons a{
-    text-decoration:none;
-    padding:12px 25px;
-    border-radius:10px;
+.profile-sidebar{
+    background-color: black;
     color:#fff;
-    font-weight:600;
-    transition:.3s;
+    height: 700px;
+    width:250px;
+   
+}
+.sidebar-logo {
+    padding: 22px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+    font-size: 15px;
 }
 
-.edit-btn{
-    background:#00b4d8;
+.sidebar-menu {
+    list-style: none;
+    padding: 15px 0;
+    margin: 0;
 }
 
-.edit-btn:hover{
-    background:#0096c7;
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 22px;
+    color: #cfd8e3;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.2s;
 }
 
-.delete-btn{
-    background:#ef233c;
+.sidebar-menu li a:hover,
+.sidebar-menu li.active a {
+    background-color: #2b3a4f;
+    color: #fff;
+    border-left: 3px solid #0d6efd;
 }
 
-.delete-btn:hover{
-    background:#d90429;
+/* ====== Boking_trips ======= */
+.trips-table{
+    width:fit-content;
+    border-collapse:collapse;
+    margin-top:20px;
+    background:#fff;
 }
 
-.profile-buttons i{
-    margin-right:8px;
+.trips-table th,
+.trips-table td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+.trips-table th{
+    background:black;
+    color:#fff;
+}
+
+.trips-table tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+.trips-table img{
+    width:80px;
+    height:60px;
+    object-fit:cover;
+    border-radius:8px;
 }
 
 @media(max-width:768px){

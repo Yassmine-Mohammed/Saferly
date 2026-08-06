@@ -58,7 +58,31 @@ $result = mysqli_query($con, $query);
 <div class="content">
 
     <h1>Manage Trips</h1>
+<?php
+if(isset($_GET['success']) && $_GET['success']=="trip_enabled"){
+?>
+<div class="success-message">
+    Trip enabled successfully.
+</div>
+<?php
+}
 
+if(isset($_GET['success']) && $_GET['success']=="trip_disabled"){
+?>
+<div class="success-message">
+    Trip disabled successfully.
+</div>
+<?php
+}
+
+if(isset($_GET['success']) && $_GET['success']=="trip_deleted"){
+?>
+<div class="success-message">
+    Trip deleted successfully.
+</div>
+<?php
+}
+?>
 <table class="users-table">
 
     <tr>
