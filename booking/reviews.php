@@ -5,7 +5,6 @@ require "../config/db.php";
 $trip_id = isset($_GET['trip_id']) ? $_GET['trip_id'] : 1;
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 1;
 
-// حطي الكود هنا (في بداية الملف)
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['review_text'])) {
     $review_text = mysqli_real_escape_string($con, $_POST['review_text']);
     $rating = intval($_POST['rating']); // استقبال قيمة النجوم اللي اختارها المستخدم
