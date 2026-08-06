@@ -12,11 +12,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
         $date = date("Y-m-d H:i:s");
 
+
+        //check not duplicated data (candy kies) for users
         //check email
         $emailCheck = mysqli_query($con, "SELECT user_id FROM users WHERE email='$email'");
 
         //check phone
         $phoneCheck = mysqli_query($con, "SELECT user_id FROM users WHERE phone='$phoneno'");
+
+        if (mysqli_num_rows($emailCheck) > 0) {
+
+            $error = "This Email is already registered.";
+
+        } elseif (mysqli_num_rows($phoneCheck) > 0) {
+
+            $error = "This Phone is already registered.";
+
+        } else {
+
+            //Query
+            $query = "INSERT INTO `users`(`name`, `email`, `password`, `phone`, `created_at`) VALUES ('$username','$email','$password','$phoneno','$date')";
+            $result = mysqli_query($con, $query);
+
+            //move to login page
+            header("Location: login.php");
+            exit();
+        }
 
     }
     if (isset($_POST['register_company'])) {
@@ -25,38 +46,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $Co_email = $_POST['company_email'];
         $Co_password = password_hash($_POST['company_password'], PASSWORD_DEFAULT);
 
+
+        //check not duplicated data (candy kies) for companies
         //check email
         $emailCheck = mysqli_query(
             $con,
             "SELECT company_id FROM companies WHERE email='$Co_email'"
         );
 
-        //check phone
+        //check taxno
         $taxCheck = mysqli_query(
             $con,
             "SELECT company_id FROM companies WHERE tax_number='$Co_taxno'"
         );
-    }
-    if (mysqli_num_rows($emailCheck) > 0) {
 
-        $error = "This Email is already registered.";
+        if (mysqli_num_rows($emailCheck) > 0) {
 
-    } elseif (mysqli_num_rows($taxCheck) > 0) {
+            $error = "This Email is already registered.";
 
-        $error = "This Phone is already registered.";
+        } elseif (mysqli_num_rows($taxCheck) > 0) {
 
-    } else {
-        if (isset($_POST['register_user'])) {
-            //Query
-            $query = "INSERT INTO `users`(`name`, `email`, `password`, `phone`, `created_at`) VALUES ('$username','$email','$password','$phoneno','$date')";
-            $result = mysqli_query($con, $query);
-        }
-        if (isset($_POST['register_company'])) {
+            $error = "This Phone is already registered.";
+
+        } else {
             //Query
             $query = "INSERT INTO `companies`(`name`, `email`, `password`, `tax_number`) VALUES ('$Co_name','$Co_email','$Co_password','$Co_taxno')";
             $result = mysqli_query($con, $query);
+
+            //move to login page
+            header("Location: login.php");
+            exit();
         }
+
     }
+
 }
 ?>
 <!DOCTYPE html>
@@ -72,9 +95,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="bg-image"></div>
-    <div class="logo text-center  justify-content-center"><img src="images\ChatGPT Image Jul 31, 2026, 12_42_35 AM.png"
+    <div class="logo text-center  justify-content-center"><img src="images\SaferlyLogo.png"
             width=200px>
-        <img src="images\ChatGPT Image Jul 31, 2026, 01_08_17 AM.png" width=350px>
+        <img src="images\NameWithSlugan.png" width=350px>
     </div>
 
     <nav>
@@ -92,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?= $error ?>
         </div>
     <?php } ?>
-    
+
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab"
             tabindex="0">

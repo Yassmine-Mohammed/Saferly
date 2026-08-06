@@ -1,0 +1,159 @@
+body, html {
+    margin: 0; padding: 0; width: 100%; min-height: 100%;
+    font-family: Arial, sans-serif;
+}
+/* الصفحة الرئيسية */
+.content1{
+    background-image: url("../images/Gemini_Generated_Image_37kbcq37kbcq37kb.png");
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    min-height: 90vh;
+}
+.main-heading  { color: #fff; padding-top: 150px; font-size: 80px; }
+.sub-text{ color: #fff; padding-top: 50px; }
+
+.form-data{ max-width: 950px; width: 90%; margin: 50px auto; }
+.form-data form{
+    display: flex; align-items: center; justify-content: space-between;
+    background-color: #fff; border-radius: 50px; padding: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.1); margin-top: 100px;
+}
+.form-data input, .form-data select{
+    flex: 1; border: none; outline: none;
+    padding: 15px 20px; font-size: 16px; background: transparent;
+}
+.form-data button{
+    border: none; background: #000; color: white;
+    padding: 15px 30px; border-radius: 40px; font-size: 16px;
+    font-weight: bold; cursor: pointer; transition: .3s;
+}
+.form-data button:hover{ background: #333; }
+.form-data input:not(:last-of-type){ border-right: 1px solid #ddd; }
+
+.content2{ width: 100%; min-height: 100vh; }
+.section-header { text-align: center; margin: 60px auto; }
+.section-header h2{ font-size: 50px; }
+.section-header p{ color:#a9a9a9 ; }
+.suggestions{
+    display: flex; overflow-x: auto; gap: 15px;
+    scroll-snap-type: x mandatory; width: 100%; padding: 20px;
+}
+.nav-btn-card{
+    min-height: 400px; display: flex; flex-direction: row;
+    justify-content: space-around; align-items: center;
+}
+.nav-btn{
+    width:40px; height:40px; border-radius:50%; border:none;
+    background:#eee; color:#000; cursor:pointer; font-size: 20px;
+}
+.nav-btn:hover{ background: #ccc; }
+.place-card{
+    min-width: 250px; height: 380px; background-color: #fff;
+    border-radius: 15px; scroll-snap-align: start;
+    display: flex; flex-direction: column;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease; cursor: pointer; text-align: center;
+}
+.place-card:hover{ transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+
+.content3{
+    width: 100%; align-items: center; display: flex; flex-direction: column;
+    justify-content: center; background-image: url("../images/image.png");
+    background-repeat: no-repeat; background-position: 100%;
+    background-size: cover; min-height: 90vh;
+}
+.content3 h2 { color: #fff; font-size: 42px; margin-bottom: 20px; margin-top: 50px;}
+.content3 p{ color: #7d7d7d; margin-bottom: 80px; }
+.trust-travel{ width: 100%; display: flex; justify-content: center; flex-direction: row; gap: 50px; flex-wrap: wrap; }
+.trust1 , .trust2 , .trust3 {
+    background-color: #fff; width: 250px; height: 300px;
+    display: flex; flex-direction: column; align-items: center;
+    border-radius: 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* صفحة الفلاتر والبحث */
+.search-result {
+    background-color: rgb(252, 246, 239);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 25px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.search-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.search-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 25px;
+}
+
+.search-details h1 { color: #333; margin-bottom: 10px; font-size: 26px;}
+.search-details h2 { color: #f39c12; margin-bottom: 10px; font-size: 18px;}
+.search-details h3 { color: #555; margin-bottom: 8px; font-size: 16px;}
+.search-details p { max-width: 600px; line-height: 1.6; color: #666; margin-bottom: 15px;}
+
+.search-price {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    border-left: 2px solid #ddd;
+    padding-left: 20px;
+}
+
+.search-price h1 {
+    color: #27ae60;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.search-price button,.place-card button {
+    background-color: teal;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.search-price button ,.place-card button:hover {
+    background-color: #006666;
+}
+/* compare */
+
+
+
+/* للموبايل */
+@media (max-width: 768px) {
+    .search-result {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .search-details { padding: 20px 0; }
+    .search-price { border-left: none; border-top: 2px solid #ddd; padding-top: 20px; width: 100%; }
+}
+
+@media (max-width:768px){
+    .form-data form{ flex-direction: column; border-radius: 20px; }
+    .form-data input, .form-data button{ width:100%; border-right: none !important; border-bottom: 1px solid #ddd; }
+    .form-data button { border-bottom: none; border-radius: 0 0 20px 20px; }
+    .content3 h2{ font-size: 32px; }
+    .search-result{ flex-direction:column; align-items:center; text-align: center; }
+    .search-image{ width:100%; height:250px; }
+    .search-price{ width:100%; border-left: none; border-top: 1px solid #eee; padding-top: 20px; }
+}
