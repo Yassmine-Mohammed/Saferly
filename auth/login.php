@@ -7,7 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['login_user'])) {
         $email = $_POST['user_email'];
 
-        $query = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
+
+        $query = "SELECT * FROM users WHERE email = '$email'  LIMIT 1";
+
+
         $result = mysqli_query($con, $query);
 
         if (mysqli_num_rows($result) > 0) {
