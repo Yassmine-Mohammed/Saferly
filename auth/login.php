@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (password_verify($_POST['company_password'], $row['password'])) {
                 $_SESSION['company'] = $row;
-                header("Location:../search/index.php");
+                header("Location:../company/dashboard.php");
                 exit();
             } else {
                 $error = "Incorrect password";
