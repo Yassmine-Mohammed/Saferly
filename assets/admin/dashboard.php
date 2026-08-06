@@ -82,10 +82,7 @@ $total_bookings = $bookings['total_bookings'];
 
     <h2>Dashboard Overview</h2>
 
-    <div class="admin">
-        Admin
-    </div>
-
+    
 </div>
 
 

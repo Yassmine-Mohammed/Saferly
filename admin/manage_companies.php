@@ -97,25 +97,24 @@ if(isset($_GET['success']) && $_GET['success']=="company_approved"){
    <td><?php echo $company['status']; ?></td>
 <td>
 
+
+
+
 <a href="view_company.php?id=<?php echo $company['company_id']; ?>">
     View
 </a>
 
-
-<?php if($company['status']=="pending"){ ?>
-
+|
 
 <a href="approve_company.php?id=<?php echo $company['company_id']; ?>">
     Approve
 </a>
 
-
+|
 
 <a href="reject_company.php?id=<?php echo $company['company_id']; ?>">
     Reject
 </a>
-
-<?php } ?>
 
 
 </td>
