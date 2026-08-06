@@ -45,9 +45,9 @@ include("../includes/header.php");
             <div class="suggestions">
                 <?php while($trip = mysqli_fetch_assoc($trips_result)): ?>
                     <div class="place-card">
-                        <img src="uploads/<?php echo htmlspecialchars($trip['image']); ?>" alt="Trip" style="width:100%; height:150px; object-fit:cover; border-radius:15px 15px 0 0;">
+                        <img src="../assets/images/<?php echo htmlspecialchars($trip['image']); ?>" alt="Trip" style="width:100%; height:100px; object-fit:cover; border-radius:15px 15px 0 0;">
                         <div style="padding: 15px; font-size:16px;">
-                            <h3 style="margin-bottom: 10px;"><?php echo htmlspecialchars($trip['trip_name']); ?></h3>
+                            <h4 style="margin-bottom: 10px;"><?php echo htmlspecialchars($trip['trip_name']); ?></h4>
                             <p><i class="fa-solid fa-location-dot"></i> <?php echo htmlspecialchars($trip['destination']); ?></p>
                             <p><i class="fa-regular fa-clock"></i> <?php echo htmlspecialchars($trip['duration_days']); ?> Days</p>
                             <p><i class="fa-solid fa-star" style="color: #f39c12;"></i> <?php echo htmlspecialchars($trip['hotel_level']); ?> Stars Hotel</p>

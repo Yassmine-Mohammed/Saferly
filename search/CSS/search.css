@@ -38,7 +38,7 @@ body, html {
     scroll-snap-type: x mandatory; width: 100%; padding: 20px;
 }
 .nav-btn-card{
-    min-height: 400px; display: flex; flex-direction: row;
+    min-height: 450px; display: flex; flex-direction: row;
     justify-content: space-around; align-items: center;
 }
 .nav-btn{
@@ -47,7 +47,7 @@ body, html {
 }
 .nav-btn:hover{ background: #ccc; }
 .place-card{
-    min-width: 250px; height: 380px; background-color: #fff;
+    min-width: 250px; height: 420px; background-color: #fff;
     border-radius: 15px; scroll-snap-align: start;
     display: flex; flex-direction: column;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
