@@ -4,10 +4,20 @@ require_once "../config/db.php";
 
 $trip_id = isset($_GET['trip_id']) ? intval($_GET['trip_id']) : 0;
 
+// حطينا الكود ده هنا مكان السطر القديم
+$user_query = mysqli_query($con, "SELECT user_id FROM users LIMIT 1");
+if ($user_query && mysqli_num_rows($user_query) > 0) {
+    $user_row = mysqli_fetch_assoc($user_query);
+    $default_user_id = $user_row['user_id'];
+} else {
+    $default_user_id = 1;
+}
+
+$user_id = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : $default_user_id;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['comment'])) {
     $comment = mysqli_real_escape_string($con, $_POST['comment']);
     $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 5;
-    $user_id = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : 1;
 
     $sql = "INSERT INTO reviews (user_id, trip_id, rating, comment) VALUES ('$user_id', '$trip_id', '$rating', '$comment')";
     
@@ -17,8 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['comment'])) {
     } else {
         echo "Error: " . mysqli_error($con);
     }
-    }
-
+}
 ?>
 
 <!DOCTYPE html>
