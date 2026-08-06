@@ -51,6 +51,26 @@ $result = mysqli_query($con, $query);
     <div class="content">
 
         <h1>Manage Companies</h1>
+   
+
+<?php
+if(isset($_GET['success']) && $_GET['success']=="company_rejected"){
+?>
+<div class="success-message">
+    Company rejected successfully.
+</div>
+<?php
+}
+?>
+<?php
+if(isset($_GET['success']) && $_GET['success']=="company_approved"){
+?>
+<div class="success-message">
+    Company approved successfully.
+</div>
+<?php
+}
+?>
 <table class="users-table">
 
     <tr>
@@ -82,17 +102,15 @@ $result = mysqli_query($con, $query);
 </a>
 
 
-<?php if($company['status']=="not_verified"){ ?>
+<?php if($company['status']=="pending"){ ?>
 
-|
+
 <a href="approve_company.php?id=<?php echo $company['company_id']; ?>">
-    Verify
+    Approve
 </a>
 
 
-<?php } else { ?>
 
-|
 <a href="reject_company.php?id=<?php echo $company['company_id']; ?>">
     Reject
 </a>

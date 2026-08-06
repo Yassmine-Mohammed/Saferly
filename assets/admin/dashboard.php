@@ -39,7 +39,7 @@ $total_bookings = $bookings['total_bookings'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
 
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="Css/admin.css">
 </head>
 
 <body>
@@ -178,13 +178,15 @@ $total_bookings = $bookings['total_bookings'];
     <div class="box">
 
         <h2>Quick Actions</h2>
-
-        <button>Add User</button>
-
+<a href="add_user.php">
+    <button>Add User</button>
+</a>
+<a href="add_company.php">
         <button>Add Company</button>
-
+</a>
+<a href="add_trip.php">
         <button>Add Trip</button>
-
+</a>
     </div>
 
 

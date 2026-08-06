@@ -55,7 +55,33 @@ $result = mysqli_query($con, $query);
 
 
     <h1>Manage Users</h1>
-
+    <?php
+if(isset($_GET['success']) && $_GET['success']=="role_updated"){
+?>
+    <div class="success-message">
+        Role updated successfully.
+    </div>
+<?php
+}
+?>
+<?php
+if(isset($_GET['success']) && $_GET['success']=="user_deleted"){
+?>
+<div class="success-message">
+    User deleted successfully.
+</div>
+<?php
+}
+?>
+<?php
+if(isset($_GET['success']) && $_GET['success']=="user_added"){
+?>
+<div class="success-message">
+    User added successfully.
+</div>
+<?php
+}
+?>
     <table class="users-table">
 
         <tr>
