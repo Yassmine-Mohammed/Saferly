@@ -10,22 +10,37 @@ $price = $_POST['price'];
 $duration_days = $_POST['duration_days'];
 $start_date = $_POST['start_date'];
 
-
 $query = "
-INSERT INTO trips 
-(company_id, trip_name, destination, price, duration_days, start_date, status)
+INSERT INTO trips
+(
+company_id,
+trip_name,
+destination,
+price,
+duration_days,
+start_date,
+status,
+description,
+category,
+hotel_level,
+image
+)
 
 VALUES
-
-('$company_id',
+(
+'$company_id',
 '$trip_name',
 '$destination',
 '$price',
 '$duration_days',
 '$start_date',
-'active')
+'active',
+'',
+'',
+'',
+''
+)
 ";
-
 
 mysqli_query($con, $query);
 
