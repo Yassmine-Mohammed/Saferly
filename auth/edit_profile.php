@@ -40,7 +40,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Update') {
             $destination = $folder . time() . "_" . basename($_FILES["image"]["name"]);
 
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $destination)) {
-                if (!empty($_SESSION['user']['image']) && file_exists($folder . $_SESSION['user']['image'])) {
+              if (!empty($_SESSION['user']['image']) && $_SESSION['user']['image'] !== 'default.png' && file_exists($folder . $_SESSION['user']['image'])) {
                     unlink($folder . $_SESSION['user']['image']);
                 }
                 $image_added = true;
@@ -101,8 +101,10 @@ $currentLname = $nameParts[1] ?? "";
 </head>
 
 <body>
-    <h2 class="text-center">Edit Profile</h2>
     <?php include_once("../includes/header.php"); ?>
+    
+    <div class="profile">
+    <?php include_once("navbar.php"); ?>
 
     <?php if (!empty($error)) { ?>
         <div class="alert alert-danger text-center">
@@ -149,7 +151,7 @@ $currentLname = $nameParts[1] ?? "";
             </div>
         </form>
     </div>
-
+</div>
     <script src="../js/bootstrap.bundle.min.js"></script>
     <?php include_once("../includes/footer.php"); ?>
 </body>

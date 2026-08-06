@@ -7,7 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['login_user'])) {
         $email = $_POST['user_email'];
 
-        $query = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
+
+        $query = "SELECT * FROM users WHERE email = '$email'  LIMIT 1";
+
+
         $result = mysqli_query($con, $query);
 
         if (mysqli_num_rows($result) > 0) {
@@ -15,7 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (password_verify($_POST['user_password'], $row['password'])) {
                 $_SESSION['user'] = $row;
-                header("Location:../search/index.php");
+                if ($row['role'] == 'admin') {
+                    header("Location:../admin/dashboard.php");
+                } else {
+                    header("Location:../search/index.php");
+                }
                 exit();
             } else {
                 $error = "Incorrect password";
@@ -26,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (isset($_POST['login_company'])) {
         $Co_email = $_POST['company_email'];
-        $Co_password = password_hash($_POST['company_password'], PASSWORD_DEFAULT);
 
         $query = "SELECT * FROM companies WHERE email = '$Co_email' LIMIT 1";
         $result = mysqli_query($con, $query);
@@ -36,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (password_verify($_POST['company_password'], $row['password'])) {
                 $_SESSION['company'] = $row;
-                header("Location:../search/index.php");
+                header("Location:../company/dashboard.php");
                 exit();
             } else {
                 $error = "Incorrect password";
@@ -60,8 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="bg-image"></div>
-    <div class="logo text-center  justify-content-center"><img src="images\SaferlyLogo.png"
-            width=200px>
+    <div class="logo text-center  justify-content-center"><img src="images\SaferlyLogo.png" width=200px>
         <img src="images\NameWithSlugan.png" width=350px>
     </div>
 
