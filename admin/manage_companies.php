@@ -125,8 +125,6 @@ $result = mysqli_query($con, $query);
 </a>
 
 
-<?php if($status == "pending"){ ?>
-
 <a href="approve_company.php?id=<?php echo $company['company_id']; ?>">
     Approve
 </a>
@@ -134,24 +132,6 @@ $result = mysqli_query($con, $query);
 <a href="reject_company.php?id=<?php echo $company['company_id']; ?>">
     Reject
 </a>
-
-
-<?php } elseif($status == "approved"){ ?>
-
-<a href="reject_company.php?id=<?php echo $company['company_id']; ?>">
-    Reject
-</a>
-
-
-<?php } elseif($status == "rejected"){ ?>
-
-<a href="approve_company.php?id=<?php echo $company['company_id']; ?>">
-    Approve
-</a>
-
-
-<?php } ?>
-
 
 </td>
 

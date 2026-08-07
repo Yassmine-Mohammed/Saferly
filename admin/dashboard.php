@@ -78,14 +78,14 @@ $total_bookings = $bookings['total_bookings'];
     <div class="content">
 
         <h1>Admin Dashboard</h1>
+
 <div class="topbar">
 
     <h2>Dashboard Overview</h2>
 
-    
+
+
 </div>
-
-
 <div class="cards">
 
 
