@@ -3,8 +3,8 @@ session_start();
 require "../config/db.php";
 
 // جلب الـ user_id الصحيح
-if (isset($_SESSION['user_id'])) {
-    $user_id = intval($_SESSION['user_id']);
+if (isset($_SESSION['user']['user_id'])) {
+    $user_id = intval($_SESSION['user']['user_id']);
 } else {
     $result_user = mysqli_query($con, "SELECT user_id FROM users LIMIT 1");
     if ($result_user && mysqli_num_rows($result_user) > 0) {
