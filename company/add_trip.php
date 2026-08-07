@@ -70,10 +70,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_trip'])) {
                 $imageFileName = "trip_" . $company_id . "_" . uniqid() . "." . $ext;
                 $destination_path = "../assets/images/trips/" . $imageFileName;
 
-                if (!move_uploaded_file($file['tmp_name'], $destination_path)) {
-                    $error = "Failed to save the uploaded image.";
-                    $imageFileName = null;
-                }
+                 if (!move_uploaded_file($file['tmp_name'], $destination_path)) {
+                     $error = "Failed to save the uploaded image.";
+                  $imageFileName = null;
+                 } else {
+    // نخزن القيمة في الداتابيز بنفس صيغة الرحلات القديمة: "trips/filename.jpg"
+                         $imageFileName = "trips/" . $imageFileName;
+                    }   
             }
         }
     }
@@ -113,10 +116,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_trip'])) {
 }
 
 $page_title = "Add New Trip";
-require_once "../includes/header.php";
 ?>
-<link rel="stylesheet" href="../includes/CSS/includes.css">
-<link rel="stylesheet" href="CSS/company.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= htmlspecialchars($page_title) ?> | Saferly</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="CSS/company.css">
+</head>
+<body>
 
 <div class="company-wrapper">
 

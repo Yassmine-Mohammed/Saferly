@@ -88,18 +88,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_trip'])) {
                 $newImageFileName = "trip_" . $company_id . "_" . uniqid() . "." . $ext;
                 $destination_path = "../assets/images/trips/" . $newImageFileName;
 
-                if (move_uploaded_file($file['tmp_name'], $destination_path)) {
-                    // حذف الصورة القديمة إن وُجدت لتفادي تراكم ملفات غير مستخدمة
+                    if (move_uploaded_file($file['tmp_name'], $destination_path)) {
+                // حذف الصورة القديمة إن وُجدت لتفادي تراكم ملفات غير مستخدمة
                     if (!empty($trip['image'])) {
-                        $oldPath = "../assets/images/trips/" . $trip['image'];
-                        if (is_file($oldPath)) {
-                            @unlink($oldPath);
-                        }
+                // نشيل "trips/" لو موجودة في القيمة القديمة قبل بناء مسار الحذف
+                    $oldFileName = str_replace("trips/", "", $trip['image']);
+                    $oldPath = "../assets/images/trips/" . $oldFileName;
+                if (is_file($oldPath)) {
+                @unlink($oldPath);
+                }
                     }
-                    $imageFileName = $newImageFileName;
+                    // نخزن بنفس صيغة الرحلات القديمة: "trips/filename.jpg"
+                    $imageFileName = "trips/" . $newImageFileName;
                 } else {
                     $error = "Failed to save the uploaded image.";
-                }
+                    }
             }
         }
     }
@@ -151,12 +154,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_trip'])) {
         'status'        => $status,
     ]);
 }
-
 $page_title = "Edit Trip";
-require_once "../includes/header.php";
 ?>
-<link rel="stylesheet" href="../includes/CSS/includes.css">
-<link rel="stylesheet" href="CSS/company.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= htmlspecialchars($page_title) ?> | Saferly</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="CSS/company.css">
+</head>
+<body>
 
 <div class="company-wrapper">
 
@@ -254,8 +264,8 @@ require_once "../includes/header.php";
                             <input type="file" name="trip_image" class="form-control" accept=".jpg,.jpeg,.png,.webp">
                             <?php if (!empty($trip['image'])): ?>
                                 <div class="mt-2">
-                                    <img src="../assets/images/trips/<?= htmlspecialchars($trip['image']) ?>"
-                                        alt="" class="trip-thumb-lg">
+                                    <img src="../assets/images/<?= htmlspecialchars($trip['image']) ?>"
+                                            alt="" class="trip-thumb-lg">
                                     <small class="text-muted d-block">Current image (upload a new one to replace it)</small>
                                 </div>
                             <?php endif; ?>
