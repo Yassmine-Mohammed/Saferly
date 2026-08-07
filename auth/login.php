@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php } ?>
 
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab"
+        <div class="tab-pane ease show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab"
             tabindex="0">
             <div class="container mt-5 w-50 mx-auto">
                 <form class="form-box" method="POST">
@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
 
-        <div class="tab-pane fade" id="nav-company" role="tabpanel" aria-labelledby="nav-company-tab" tabindex="0">
+        <div class="tab-pane ease" id="nav-company" role="tabpanel" aria-labelledby="nav-company-tab" tabindex="0">
             <div class="container mt-5 w-50 mx-auto">
                 <form class="form-box" method="POST">
                     <input type="email" class="form-control" name="company_email"
