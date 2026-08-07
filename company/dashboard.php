@@ -147,7 +147,7 @@ $page_title = "Dashboard";
                                 <tr>
                                     <td>
                                         <?php if (!empty($trip['image'])): ?>
-                                            <img src="../assets/images/trips/<?= htmlspecialchars($trip['image']) ?>"
+                                            <img src="../assets/images/<?= htmlspecialchars($trip['image']) ?>"
                                                 alt="" class="trip-thumb">
                                         <?php else: ?>
                                             <span class="text-muted">No image</span>

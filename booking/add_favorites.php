@@ -4,7 +4,7 @@ require_once "../config/db.php";
 
 // التأكد من تسجيل الدخول وجلب الـ user_id الحقيقي
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../auth/login.php");
+    header("Location: ../search/index.php");
     exit();
 }
 
