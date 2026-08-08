@@ -88,18 +88,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_trip'])) {
                 $newImageFileName = "trip_" . $company_id . "_" . uniqid() . "." . $ext;
                 $destination_path = "../assets/images/trips/" . $newImageFileName;
 
-                if (move_uploaded_file($file['tmp_name'], $destination_path)) {
-                    // حذف الصورة القديمة إن وُجدت لتفادي تراكم ملفات غير مستخدمة
+                    if (move_uploaded_file($file['tmp_name'], $destination_path)) {
+                // حذف الصورة القديمة إن وُجدت لتفادي تراكم ملفات غير مستخدمة
                     if (!empty($trip['image'])) {
-                        $oldPath = "../assets/images/trips/" . $trip['image'];
-                        if (is_file($oldPath)) {
-                            @unlink($oldPath);
-                        }
+                // نشيل "trips/" لو موجودة في القيمة القديمة قبل بناء مسار الحذف
+                    $oldFileName = str_replace("trips/", "", $trip['image']);
+                    $oldPath = "../assets/images/trips/" . $oldFileName;
+                if (is_file($oldPath)) {
+                @unlink($oldPath);
+                }
                     }
-                    $imageFileName = $newImageFileName;
+                    // نخزن بنفس صيغة الرحلات القديمة: "trips/filename.jpg"
+                    $imageFileName = "trips/" . $newImageFileName;
                 } else {
                     $error = "Failed to save the uploaded image.";
-                }
+                    }
             }
         }
     }
@@ -261,8 +264,8 @@ $page_title = "Edit Trip";
                             <input type="file" name="trip_image" class="form-control" accept=".jpg,.jpeg,.png,.webp">
                             <?php if (!empty($trip['image'])): ?>
                                 <div class="mt-2">
-                                    <img src="../assets/images/trips/<?= htmlspecialchars($trip['image']) ?>"
-                                        alt="" class="trip-thumb-lg">
+                                    <img src="../assets/images/<?= htmlspecialchars($trip['image']) ?>"
+                                            alt="" class="trip-thumb-lg">
                                     <small class="text-muted d-block">Current image (upload a new one to replace it)</small>
                                 </div>
                             <?php endif; ?>

@@ -5,11 +5,12 @@ require_once("../config/db.php");
 require_once "../includes/login_check.php";
 checkLogin();
 
+$userId = $_SESSION['user']['user_id'];
 //===========================
 // Delete Profile
 //===========================
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-
+    
     $userId = mysqli_real_escape_string($con, $userId);
 
     // نمسح كل الصفوف المرتبطة بالمستخدم في الجداول التانية الأول
@@ -33,7 +34,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         // ننهي الجلسة ونرجّعه لصفحة تسجيل الدخول
         session_unset();
         session_destroy();
-
+        
         header("Location: login.php?deleted=1");
         exit();
     } else {
@@ -72,7 +73,7 @@ $row = mysqli_fetch_assoc($result);
         <main class="profile-page">
             <div class="profile-card w-75">
                 <div class="UP_photo">
-                    <img src="uploads/user<?= htmlspecialchars($row['image']) ?>" alt="Profile">
+                    <img src="uploads\user\<?= htmlspecialchars($row['image']) ?>" alt="Profile">
                 </div>
 
                 <div class="user-data">

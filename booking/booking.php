@@ -3,8 +3,8 @@ session_start();
 require "../config/db.php";
 
 // جلب الـ user_id الصحيح
-if (isset($_SESSION['user_id'])) {
-    $user_id = intval($_SESSION['user_id']);
+if (isset($_SESSION['user']['user_id'])) {
+    $user_id = intval($_SESSION['user']['user_id']);
 } else {
     $result_user = mysqli_query($con, "SELECT user_id FROM users LIMIT 1");
     if ($result_user && mysqli_num_rows($result_user) > 0) {
@@ -23,13 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $trip_id > 0) {
     $sql = "INSERT INTO bookings (user_id, trip_id, booking_date) VALUES ('$user_id', '$trip_id', NOW())";
     
     if (mysqli_query($con, $sql)) {
-        header("Location: my_bookings.php");
+        // التوجيه إلى صفحة الهوم بعد النجاح
+        header("Location: ../search/index.php");
         exit();
     } else {
         // لو جدول البوكنج فيه أعمدة تانية إجبارية زي status أو total_price
         $sql_alt = "INSERT INTO bookings (user_id, trip_id) VALUES ('$user_id', '$trip_id')";
         if (mysqli_query($con, $sql_alt)) {
-            header("Location: my_bookings.php");
+            // التوجيه إلى صفحة تفاصيل الرحلة بعد النجاح
+            header("Location: trip_details.php?id=" . $trip_id);
             exit();
         } else {
             $error = "Database Error: " . mysqli_error($con);

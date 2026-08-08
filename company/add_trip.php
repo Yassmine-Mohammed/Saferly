@@ -70,10 +70,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_trip'])) {
                 $imageFileName = "trip_" . $company_id . "_" . uniqid() . "." . $ext;
                 $destination_path = "../assets/images/trips/" . $imageFileName;
 
-                if (!move_uploaded_file($file['tmp_name'], $destination_path)) {
-                    $error = "Failed to save the uploaded image.";
-                    $imageFileName = null;
-                }
+                 if (!move_uploaded_file($file['tmp_name'], $destination_path)) {
+                     $error = "Failed to save the uploaded image.";
+                  $imageFileName = null;
+                 } else {
+    // نخزن القيمة في الداتابيز بنفس صيغة الرحلات القديمة: "trips/filename.jpg"
+                         $imageFileName = "trips/" . $imageFileName;
+                    }   
             }
         }
     }
