@@ -73,7 +73,7 @@ $row = mysqli_fetch_assoc($result);
         <main class="profile-page">
             <div class="profile-card w-75">
                 <div class="UP_photo">
-                    <img src="uploads\user<?= htmlspecialchars($row['image']) ?>" alt="Profile">
+                    <img src="uploads/user/<?= htmlspecialchars($row['image']) ?>" alt="Profile">
                 </div>
 
                 <div class="user-data">
