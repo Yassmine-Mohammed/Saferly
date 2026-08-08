@@ -55,7 +55,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <!-- يظهر للمستخدم المسجل -->
                 <div class="user-menu">
                     <a href="../auth/profile.php" title="My Profile">
-                        <img src="../images/default-avatar.png" alt="Profile" class="profile-circle" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';">
+                    <img src="../auth/uploads/user/<?= htmlspecialchars($row['image']) ?>" alt="Profile" class="profile-circle" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';">
                     </a>
                     <a href="../auth/logout.php" class="btn-logout">
                         <i class="fa-solid fa-right-from-bracket"></i> Logout
