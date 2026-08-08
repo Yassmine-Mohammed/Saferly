@@ -1,7 +1,8 @@
 <?php 
 session_start();
 require_once("../config/db.php");
-$userId = $_SESSION['user']['user_id'];
+$userId = $_SESSION['user']['user_id'] ?? null;
+
 
 //  أحدث الرحلات
 $trips_query = "SELECT * FROM trips WHERE status = 'active' LIMIT 6";

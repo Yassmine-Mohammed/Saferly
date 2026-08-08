@@ -1,15 +1,16 @@
 <?php
-require_once("../config/db.php");
-$userId = $_SESSION['user']['user_id'];
-$query = "SELECT * FROM users WHERE user_id = '$userId'";
-$result = mysqli_query($con, $query);
-
-$row = mysqli_fetch_assoc($result);
 // تأكد من بدء الجلسة
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 
 }
+require_once("../config/db.php");
+$userId = $_SESSION['user']['user_id']??null;
+$query = "SELECT * FROM users WHERE user_id = '$userId'";
+$result = mysqli_query($con, $query);
+
+$row = mysqli_fetch_assoc($result);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

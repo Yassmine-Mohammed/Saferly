@@ -40,7 +40,7 @@ $result = mysqli_query($con, $query);
             <?php if(mysqli_num_rows($result) > 0): ?>
                 <?php while($trip = mysqli_fetch_assoc($result)): ?>
                     <div class="search-result">
-                        <img src="../uploads/<?php echo htmlspecialchars($trip['image']); ?>" class="search-image" alt="Trip Image">
+                        <img src="../assets/images/<?php echo htmlspecialchars($trip['image']); ?>" class="search-image" alt="Trip Image">
                         <div class="search-details">
                             <h1><?php echo htmlspecialchars($trip['trip_name']); ?></h1>
                             <h2><?php echo htmlspecialchars($trip['hotel_level']); ?> Stars Hotel</h2>
