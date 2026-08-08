@@ -89,7 +89,6 @@ if(isset($_GET['success']) && $_GET['success']=="trip_deleted"){
         <th>ID</th>
         <th>Trip Name</th>
         <th>Company</th>
-
         <th>Destination</th>
         <th>Category</th>
         <th>Price</th>

@@ -127,6 +127,7 @@ $result = mysqli_query($con, $query);
 
 <?php if($status == "pending"){ ?>
 
+=======
 <a href="approve_company.php?id=<?php echo $company['company_id']; ?>">
     Approve
 </a>
@@ -151,6 +152,7 @@ $result = mysqli_query($con, $query);
 
 
 <?php } ?>
+
 
 
 </td>
