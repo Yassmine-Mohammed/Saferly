@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once("../config/db.php");
-include("../includes/header.php");
 
 //  index بناء استعلام البحث بناءً على البيانات القادمة من الـ 
 $where_clauses = ["status = 'active'"];
@@ -9,16 +8,17 @@ $where_clauses = ["status = 'active'"];
 if (isset($_GET['destination']) && !empty($_GET['destination'])) {
     $destination = mysqli_real_escape_string($con, $_GET['destination']);
     $where_clauses[] = "(destination LIKE '%$destination%' OR trip_name LIKE '%$destination%')";
-}
-if (isset($_GET['start_date']) && !empty($_GET['start_date'])) {
-    $start_date = mysqli_real_escape_string($con, $_GET['start_date']);
+    }
+    if (isset($_GET['start_date']) && !empty($_GET['start_date'])) {
+        $start_date = mysqli_real_escape_string($con, $_GET['start_date']);
     $where_clauses[] = "start_date >= '$start_date'";
-}
+    }
+    
+    // تجميع الشروط
+    $where_sql = implode(" AND ", $where_clauses);
+    $query = "SELECT * FROM trips WHERE $where_sql ORDER BY start_date ASC";
+    $res = mysqli_query($con, $query);
 
-// تجميع الشروط
-$where_sql = implode(" AND ", $where_clauses);
-$query = "SELECT * FROM trips WHERE $where_sql ORDER BY start_date ASC";
-$result = mysqli_query($con, $query);
 ?>
 
 <!DOCTYPE html>
@@ -27,18 +27,17 @@ $result = mysqli_query($con, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/search.css">
-    <link rel="stylesheet" href="CSS/all.css">
     <link rel="stylesheet" href="../includes/CSS/includes.css">
-
     <title>Search Results</title>
 </head>
 <body>
+    <?php include("../includes/header.php");?>
     <main class="container" style="min-height: 70vh; padding-top: 40px;">
         <h2 style="margin-bottom: 30px; text-align: center;">Search Results</h2>
         <div class="search-results">
             
-            <?php if(mysqli_num_rows($result) > 0): ?>
-                <?php while($trip = mysqli_fetch_assoc($result)): ?>
+            <?php if(mysqli_num_rows($res) > 0): ?>
+                <?php while($trip = mysqli_fetch_assoc($res)): ?>
                     <div class="search-result">
                         <img src="../assets/images/<?php echo htmlspecialchars($trip['image']); ?>" class="search-image" alt="Trip Image">
                         <div class="search-details">
@@ -62,7 +61,7 @@ $result = mysqli_query($con, $query);
             <?php else: ?>
                 <div style="text-align: center; padding: 50px; background: #fff; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
                     <h2 style="color: #555;">No trips found matching your search.</h2>
-                    <a href="../index.php" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: #000; color: #fff; text-decoration: none; border-radius: 20px;">Go Back</a>
+                    <a href="index.php" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: #000; color: #fff; text-decoration: none; border-radius: 20px;">Go Back</a>
                 </div>
             <?php endif; ?>
 
@@ -71,4 +70,17 @@ $result = mysqli_query($con, $query);
 
     <?php include("../includes/footer.php"); ?>
 </body>
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target); // يشتغل مرة واحدة بس
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.content2, .content3, .search-result, .place-card')
+        .forEach(el => observer.observe(el));
+</script>
 </html>

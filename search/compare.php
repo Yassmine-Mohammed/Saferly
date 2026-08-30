@@ -78,8 +78,8 @@ if($trip2_id > 0) {
             <tbody>
                 <tr>
                     <td class="fw-bold align-middle">Image</td>
-                    <td><img src="../uploads/<?php echo htmlspecialchars($trip1['image']); ?>" alt="Trip 1" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px;"></td>
-                    <td><img src="../uploads/<?php echo htmlspecialchars($trip2['image']); ?>" alt="Trip 2" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px;"></td>
+                    <td><img src="../assets/images/<?php echo htmlspecialchars($trip1['image']); ?>" alt="Trip 1" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px;"></td>
+                    <td><img src="../assets/images/<?php echo htmlspecialchars($trip2['image']); ?>" alt="Trip 2" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px;"></td>
                 </tr>
                 <tr>
                     <td class="fw-bold">Destination</td>

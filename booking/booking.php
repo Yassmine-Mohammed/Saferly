@@ -2,21 +2,10 @@
 session_start();
 require "../config/db.php";
 
-// جلب الـ user_id الصحيح
-if (isset($_SESSION['user']['user_id'])) {
-    $user_id = intval($_SESSION['user']['user_id']);
-} else {
-    $result_user = mysqli_query($con, "SELECT user_id FROM users LIMIT 1");
-    if ($result_user && mysqli_num_rows($result_user) > 0) {
-        $row_user = mysqli_fetch_assoc($result_user);
-        $user_id = $row_user['user_id'];
-    } else {
-        $user_id = 1;
-    }
-}
-
+require_once"../includes/login_check.php";
+checklogin();
+$user_id = intval($_SESSION['user']['user_id']);
 $trip_id = isset($_GET['trip_id']) ? intval($_GET['trip_id']) : 0;
-
 // عند تأكيد الحجز
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $trip_id > 0) {
     // محاولة الإدخال مع الأعمدة الأساسية الشائعة

@@ -29,6 +29,7 @@ if(mysqli_num_rows($result) > 0){
 </head>
 
 <body>
+    <?php include("../includes/header.php"); ?>
 
 <div class="details-container">
 
@@ -84,6 +85,7 @@ if(mysqli_num_rows($result) > 0){
     </div>
 
 </div>
+    <?php include("../includes/footer.php"); ?>
 
 </body>
 </html>

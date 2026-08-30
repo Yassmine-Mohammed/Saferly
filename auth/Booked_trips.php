@@ -8,6 +8,7 @@ require_once("../config/db.php");
 
 require_once "../includes/login_check.php";
 checkLogin();
+
 $userId = $_SESSION['user']['user_id'];
 
 $sql = "SELECT
@@ -28,7 +29,7 @@ JOIN companies c ON t.company_id = c.company_id
 WHERE b.user_id = $userId
 ORDER BY b.booking_date DESC";
 
-$result = mysqli_query($con, $sql);
+$res = mysqli_query($con, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,12 +49,12 @@ $result = mysqli_query($con, $sql);
     <?php include_once("navbar.php"); ?>
 
     <main class="profile-page">
-        <div class="profile-card w-75 h-100">
+        <div class="profile-card table-view">
             <div>
             <h2 class="text-center">My Booked Trips</h2>
             <br>
             <div class="table-container">
-            <?php if (mysqli_num_rows($result) > 0) { ?>
+            <?php if (mysqli_num_rows($res) > 0) { ?>
                 <table class="trips-table">
                     <thead>
                         <tr>
@@ -68,7 +69,7 @@ $result = mysqli_query($con, $sql);
                     </thead>
 
                     <tbody>
-                        <?php while ($trip = mysqli_fetch_assoc($result)) { ?>
+                        <?php while ($trip = mysqli_fetch_assoc($res)) { ?>
                             <tr>
                                 <td>
                                     <img src="../assets/images/<?= $trip['image'] ?>" alt="<?= $trip['trip_name'] ?>" width="80">

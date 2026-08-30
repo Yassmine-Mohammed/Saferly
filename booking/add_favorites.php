@@ -2,25 +2,33 @@
 session_start();
 require_once "../config/db.php";
 
-// التأكد من تسجيل الدخول وجلب الـ user_id الحقيقي
-if (!isset($_SESSION['user']['user_id'])) {
-    header("Location: ../search/index.php");
-    exit();
-}
+require "../includes/login_check.php";
+checklogin();
 
 $user_id = intval($_SESSION['user']['user_id']);
 $trip_id = isset($_GET['trip_id']) ? intval($_GET['trip_id']) : 0;
 
-if ($trip_id > 0) {
-    $check_sql = "SELECT * FROM favorites WHERE user_id = $user_id AND trip_id = $trip_id";
-    $check_res = mysqli_query($con, $check_sql);
+$status = "error"; // الحالة الافتراضية
 
-    if ($check_res && mysqli_num_rows($check_res) == 0) {
-        $sql = "INSERT INTO favorites (user_id, trip_id) VALUES ($user_id, $trip_id)";
+if ($trip_id > 0) {
+    try {
+        $sql = "INSERT IGNORE INTO favorites (user_id, trip_id) VALUES ($user_id, $trip_id)";
         mysqli_query($con, $sql);
+
+        // affected_rows بترجع 1 لو صف جديد اتضاف فعلاً، وترجع 0 لو كان موجود بالفعل وتجاهله
+        if (mysqli_affected_rows($con) > 0) {
+            echo "<script>alert('The trip was saved to Favorite List');</script>";
+            $status = "added";
+        } else {
+            echo "<script>alert('The trip is already exists in your Favorite List');</script>";
+            $status = "already_exists";
+        }
+    } catch (mysqli_sql_exception $e) {
+        error_log("Favorites insert error: " . $e->getMessage());
+        $status = "error";
     }
 }
 
-header("Location: ../search/index.php");
+header("Location: ../search/index.php?fav_status=" . $status);
 exit();
 ?>

@@ -99,44 +99,191 @@ body{
 }
 
 /* ====== Boking_trips ======= */
-.trips-table{
-    width:fit-content;
-    border-collapse:collapse;
-    margin-top:20px;
-    background:#fff;
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.trips-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
 }
 
 .trips-table th,
-.trips-table td{
-    border:1px solid #ddd;
-    padding:12px;
-    text-align:center;
+.trips-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    white-space: nowrap;
 }
 
-.trips-table th{
-    background:black;
-    color:#fff;
+.trips-table th {
+    background: black;
+    color: #fff;
 }
 
-.trips-table tr:nth-child(even){
-    background:#f8f9fa;
+.trips-table tr:nth-child(even) {
+    background: #f8f9fa;
 }
 
-.trips-table img{
-    width:80px;
-    height:60px;
-    object-fit:cover;
-    border-radius:8px;
+.trips-table img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.trips-table tbody {
+    display: table-row-group !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.trips-table tbody tr {
+    display: table-row !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.trips-table tbody td {
+    display: table-cell !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #000 !important;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { display: flex; flex-direction: column; min-height: 100vh; }
+
+header {
+    width: 100%;
+    background: #000;
+    box-shadow: 0 3px 15px rgba(0,0,0,.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo img { width: 170px; display: block; }
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0; padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none; color: #fff;
+    font-size: 17px; font-weight: 500; transition: .3s;
+}
+
+nav ul li a:hover { color: #808080; }
+
+.header-right { display: flex; align-items: center; gap: 20px; }
+.header-right i { color: #fff; font-size: 20px; transition: .3s; }
+.header-right i:hover { color: #808080; }
+
+.btn-login {
+    text-decoration: none; color: #fff;
+    padding: 10px 18px; border: 1px solid #fff;
+    border-radius: 8px; transition: .3s;
+}
+.btn-login:hover { background: #808080; color: white; border-color: #808080; }
+
+.btn-signup {
+    text-decoration: none; background: #808080; color: white;
+    padding: 10px 18px; border-radius: 8px; transition: .3s;
+    border: 1px solid #808080;
+}
+.btn-signup:hover { background: #545454; color: #fff; border-color: #545454; }
+
+
+/* =========================================
+   تنسيقات المستخدم المسجل (جديد)
+========================================= */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #808080; /* لون الإطار متناسق مع التصميم */
+    transition: 0.3s;
+    display: block;
+}
+
+.profile-circle:hover {
+    border-color: #fff;
+    opacity: 0.8;
+}
+
+.btn-logout {
+    color: #fff; /* لون أحمر لزر الخروج ليكون واضحاً */
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.btn-logout i {
+    color: #fff;
+    font-size: 18px;
+}
+
+.btn-logout:hover, .btn-logout:hover i {
+    color: #808080;
+}
+.profile-card.table-view {
+    display: block;   /* بدل flex */
+    width: 100%;
+    max-width: 1100px;
+}
+/* ========================================= */
+/* ===== FOOTER ===== */
+footer {
+    margin-top: auto;
+    background-color: #000;
+    display: flex; justify-content: space-around;
+    align-items: center; padding: 30px 0px; flex-wrap: wrap;
+}
+footer img { width: 150px; height: auto; }
+footer h3 { color: #fff; font-size: 25px; margin-bottom: 15px;}
+footer h4 { color: #fff; font-size: 16px; margin: 10px 0;}
+.follow a i { color: #fff; font-size: 20px; margin-top: 15px; padding-left: 15px; transition: 0.3s;}
+.follow a i:hover { color: #808080; }
+
+@media(max-width:992px){
+    nav { display:none; }
 }
 
 @media(max-width:768px){
 
-    .profile-card{
-        flex-direction:column;
-        text-align:center;
-        width:100%;
-    }
-
+ .profile-card {
+    width: 100%;
+    max-width: 1200px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.12);
+}
     .profile-buttons{
         justify-content:center;
     }

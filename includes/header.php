@@ -5,43 +5,26 @@ if (session_status() === PHP_SESSION_NONE) {
 
 }
 require_once("../config/db.php");
-$userId = $_SESSION['user']['user_id']??null;
+$userId = $_SESSION['user']['user_id'] ?? null;
 $query = "SELECT * FROM users WHERE user_id = '$userId'";
 $result = mysqli_query($con, $query);
 
 $row = mysqli_fetch_assoc($result);
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
+    <title>Safarly</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saferly</title>
-
-    <link rel="stylesheet" href="../assets/css/style.css">
-</head>
-
-<body>
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Safarly</title>
+        <link rel="stylesheet" href="../assets/css/style.css">
         <!-- استدعاء ملف الـ CSS الخاص بك فقط -->
-        <link rel="stylesheet" href="CSS/includes.css">
-        <!-- 2. رابط Bootstrap CSS -->
+        <link rel="stylesheet" href="/Final Project/Saferly/includes/CSS/includes.css"> <!-- 2. رابط Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- مكتبة الأيقونات FontAwesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    </head>
-
-    <body>
+        
         <header>
             <div class="container">
                 <div class="logo">
-                    <a href="index.php">
+                    <a href="../search/index.php">
                         <img src="../includes/images/logo.png" alt="Safarly Logo">
                     </a>
                 </div>
@@ -66,7 +49,8 @@ $row = mysqli_fetch_assoc($result);
                         <div class="user-menu">
                             <a href="../auth/profile.php" title="My Profile">
                                 <img src="../auth/uploads/user/<?= htmlspecialchars($row['image']) ?>" alt="Profile"
-                                    class="profile-circle" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';">
+                                    class="profile-circle"
+                                    onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';">
                             </a>
                             <a href="../auth/logout.php" class="btn-logout">
                                 <i class="fa-solid fa-right-from-bracket"></i> Logout

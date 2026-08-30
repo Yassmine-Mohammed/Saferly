@@ -1,14 +1,9 @@
 <?php
 session_start();
-
-//===========================
-// User Favorite Trips Data
-//===========================
 require_once("../config/db.php");
-
 require_once "../includes/login_check.php";
 checkLogin();
-$userId = (int) $_SESSION['user']['user_id'];
+$userId = $_SESSION['user']['user_id'];
 
 $sql = "SELECT f.trip_id, t.trip_name, t.destination, t.image, 
                t.price, c.name, f.created_at
@@ -18,17 +13,20 @@ $sql = "SELECT f.trip_id, t.trip_name, t.destination, t.image,
         WHERE f.user_id = $userId
         ORDER BY f.created_at DESC";
 
-$result = mysqli_query($con, $sql);
+$res = mysqli_query($con, $sql);
+if (!$res) {
+    die("Query Error: " . mysqli_error($con));
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Css/profile.css">
-    <link rel="stylesheet" href="../includes/Css/includes.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/profile.css">
     <title>My Favourites</title>
 </head>
 
@@ -38,7 +36,7 @@ $result = mysqli_query($con, $sql);
         <?php include_once("navbar.php"); ?>
 
         <main class="profile-page">
-            <div class="profile-card w-75 h-100">
+            <div class="profile-card table-view">
                 <div>
                     <h2 class="text-center">My Favourite Trips</h2>
                     <br>
@@ -48,7 +46,7 @@ $result = mysqli_query($con, $sql);
                     <?php } ?>
 
                     <div class="table-container">
-                        <?php if (mysqli_num_rows($result) > 0) { ?>
+                        <?php if (mysqli_num_rows($res) > 0) { ?>
                             <table class="trips-table">
                                 <thead>
                                     <tr>
@@ -63,11 +61,11 @@ $result = mysqli_query($con, $sql);
                                 </thead>
 
                                 <tbody>
-                                    <?php while ($trip = mysqli_fetch_assoc($result)) { ?>
+                                    <?php while ($trip = mysqli_fetch_assoc($res)) { ?>
                                         <tr>
                                             <td>
                                                 <img src="../assets/images/<?= htmlspecialchars($trip['image']) ?>"
-                                                     alt="<?= htmlspecialchars($trip['trip_name']) ?>" width="80">
+                                                    alt="<?= htmlspecialchars($trip['trip_name']) ?>" width="80">
                                             </td>
                                             <td><?= htmlspecialchars($trip['trip_name']) ?></td>
                                             <td><?= htmlspecialchars($trip['destination']) ?></td>
@@ -75,7 +73,8 @@ $result = mysqli_query($con, $sql);
                                             <td><?= htmlspecialchars($trip['price']) ?> EGP</td>
                                             <td><?= htmlspecialchars($trip['created_at']) ?></td>
                                             <td>
-                                                <a href="../booking/trip_details.php?id=<?= $trip['trip_id'] ?>" class="btn btn-primary btn-sm">View</a>
+                                                <a href="../booking/trip_details.php?id=<?= $trip['trip_id'] ?>"
+                                                    class="btn btn-primary btn-sm">View</a>
                                                 <form action="remove_favorite.php" method="POST" style="display:inline;">
                                                     <input type="hidden" name="trip_id" value="<?= $trip['trip_id'] ?>">
                                                     <button type="submit" class="btn btn-danger btn-sm"

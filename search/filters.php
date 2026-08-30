@@ -1,5 +1,7 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once("../config/db.php");
 include("../includes/header.php");
 
@@ -27,11 +29,19 @@ $where_sql = implode(" AND ", $where_clauses);
 $query = "SELECT * FROM trips WHERE $where_sql ORDER BY start_date ASC";
 $result = mysqli_query($con, $query);
 ?>
-
-<link rel="stylesheet" href="CSS/search.css">
-<link rel="stylesheet" href="../includes/CSS/includes.css">
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safarly</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../includes/CSS/includes.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="CSS/search.css">
+    </head>
+    <body>
 <main class="container my-5">
     <div class="row">
         <!-- قسم الفلاتر (Sidebar) -->
@@ -102,5 +112,18 @@ $result = mysqli_query($con, $query);
         </div>
     </div>
 </main>
-
 <?php include("../includes/footer.php"); ?>
+</body>
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target); // يشتغل مرة واحدة بس
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.content2, .content3, .search-result, .place-card')
+        .forEach(el => observer.observe(el));
+</script>

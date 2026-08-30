@@ -1,6 +1,6 @@
 <footer>
     <div class="logo">
-            <a href="../index.php">
+            <a href="../search//index.php">
                 <img src="../includes/images/logo.png" alt="Safarly Logo">
             </a>
         </div>

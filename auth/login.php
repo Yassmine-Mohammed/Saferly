@@ -66,8 +66,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="bg-image"></div>
-    <div class="logo text-center  justify-content-center"><img src="images\SaferlyLogo.png" width=200px>
-        <img src="images\NameWithSlugan.png" width=350px>
+    <div class="logo text-center justify-content-center">
+        <a href="../search/index.php">
+            <img src="images/SaferlyLogo.png" width="200px" alt="logo">
+            <img src="images/NameWithSlugan.png" width="350px" alt="name and slogan">
+        </a>
     </div>
 
     <nav>

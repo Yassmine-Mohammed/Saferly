@@ -12,6 +12,7 @@ $result = mysqli_query($con, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <link rel="stylesheet" href="CSS/admin.css">
 </head>
@@ -23,30 +24,14 @@ $result = mysqli_query($con, $query);
 
         <h2>Saferly</h2>
 
-    <ul>
-
-    <li>
-        <a href="dashboard.php">Dashboard</a>
-    </li>
-
-    <li>
-        <a class="active"
-         href="manage_users.php">Users</a>
-    </li>
-
-    <li>
-        <a href="manage_companies.php">Companies</a>
-    </li>
-
-    <li>
-        <a href="manage_trips.php">Trips</a>
-    </li>
-
-    <li>
-        <a href="reports.php">Reports</a>
-    </li>
-
-</ul>
+     <ul>
+        <li><a href="dashboard.php"><i class="fa-solid fa-gauge"></i>  Dashboard</a></li>
+        <li><a href="manage_users.php"><i class="fa-solid fa-users"></i>  Users</a></li>
+        <li><a href="manage_companies.php"><i class="fa-solid fa-building"></i>  Companies</a></li>
+        <li><a href="manage_trips.php"><i class="fa-solid fa-map-location-dot"></i>  Trips</a></li>
+        <li><a class="active" href="reports.php"><i class="fa-solid fa-chart-line"></i>  Reports</a></li>
+        <li><a href="../auth/logout.php"><i class="fa-solid fa-right-from-bracket"></i>  Logout</a></li>
+    </ul>
     </div>
 
 

@@ -56,6 +56,7 @@ $page_title = "Dashboard";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="CSS/company.css">
+    <link rel="stylesheet" href="../includes/CSS/includes.css">
 </head>
 <body>
 
@@ -69,7 +70,8 @@ $page_title = "Dashboard";
         <ul class="sidebar-menu">
             <li class="active"><a href="dashboard.php"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
             <li><a href="add_trip.php"><i class="fa-solid fa-circle-plus"></i> Add New Trip</a></li>
-            <li><a href="company_profile.php"><i class="fa-solid fa-building"></i> Company Profile</a></li>
+            <li><a href="company_profile.php"><i class="fa-solid fa-building"></i>Company Profile</a></li>
+            <li><a href="../auth/logout.php"><i class="fa-solid fa-building"></i>Logout</a></li>
         </ul>
     </aside>
 
@@ -186,3 +188,5 @@ $page_title = "Dashboard";
 </div>
 
 <?php require_once "../includes/footer.php"; ?>
+                                        </body>
+                                        </html>
