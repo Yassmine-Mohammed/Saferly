@@ -7,7 +7,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
     $con = mysqli_connect(
-        "db62034.public.databaseasp.net",
+        "db62040.public.databaseasp.net",
         "db62040",
         "Yk3@?6Em2h-W",
         "db62040",
