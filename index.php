@@ -16,8 +16,16 @@ $reviews_query = "SELECT reviews.*, users.name AS user_name
                   ORDER BY reviews.created_at DESC LIMIT 5";
 $reviews_result = mysqli_query($con, $reviews_query);
 
-include __DIR__ . "/includes/header.php";
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="<?= htmlspecialchars(app_url('assets/images/SaferlyLogo.png?v=2'), ENT_QUOTES, 'UTF-8') ?>">
+</head>
+<body>
+<?php include __DIR__ . "/includes/header.php"; ?>
 
 <link rel="stylesheet" href="<?= htmlspecialchars(app_url('search/CSS/search.css'), ENT_QUOTES, 'UTF-8') ?>">
 <link rel="stylesheet" href="<?= htmlspecialchars(app_url('includes/CSS/includes.css'), ENT_QUOTES, 'UTF-8') ?>">
@@ -148,3 +156,5 @@ include __DIR__ . "/includes/header.php";
     document.querySelectorAll('.content2, .content3, .search-result, .place-card')
         .forEach(el => observer.observe(el));
 </script>
+</body>
+</html>

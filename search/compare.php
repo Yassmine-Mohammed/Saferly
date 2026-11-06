@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once("../config/db.php");
-include("../includes/header.php");
+require_once __DIR__ . "/../includes/functions.php";
 
 $trip1_id = isset($_GET['id1']) ? (int)$_GET['id1'] : 0;
 $trip2_id = isset($_GET['id2']) ? (int)$_GET['id2'] : 0;
@@ -30,6 +30,15 @@ if($trip2_id > 0) {
     mysqli_stmt_close($trip2Stmt);
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="<?= htmlspecialchars(app_url('assets/images/SaferlyLogo.png'), ENT_QUOTES, 'UTF-8') ?>">
+</head>
+<body>
+<?php include("../includes/header.php"); ?>
 
 <link rel="stylesheet" href="CSS/search.css">
 <link rel="stylesheet" href="../includes/CSS/includes.css">
@@ -134,3 +143,5 @@ if($trip2_id > 0) {
 </main>
 
 <?php include("../includes/footer.php"); ?>
+</body>
+</html>

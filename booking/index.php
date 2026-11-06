@@ -8,6 +8,8 @@ $result = mysqli_query($con, $sql);
 <!DOCTYPE html>
 <html>
 <head>
+    <?php require_once __DIR__ . '/../includes/functions.php'; ?>
+    <link rel="icon" type="image/png" href="<?= htmlspecialchars(app_url('assets/images/SaferlyLogo.png'), ENT_QUOTES, 'UTF-8') ?>">
     <title>Trips</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>

@@ -3,7 +3,6 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once("../config/db.php");
-include("../includes/header.php");
 
 // بناء استعلام البحث بناءً على الفلاتر
 $where_clauses = ["status = 'active'"];
@@ -53,6 +52,8 @@ mysqli_stmt_close($stmt);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php require_once __DIR__ . '/../includes/functions.php'; ?>
+    <link rel="icon" type="image/png" href="<?= htmlspecialchars(app_url('assets/images/SaferlyLogo.png'), ENT_QUOTES, 'UTF-8') ?>">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safarly</title>
@@ -63,6 +64,7 @@ mysqli_stmt_close($stmt);
     <link rel="stylesheet" href="CSS/search.css">
     </head>
     <body>
+<?php include("../includes/header.php"); ?>
 <main class="container my-5">
     <div class="row">
         <!-- قسم الفلاتر (Sidebar) -->
