@@ -14,12 +14,20 @@ $trip1 = null;
 $trip2 = null;
 
 if($trip1_id > 0) {
-    $q1 = mysqli_query($con, "SELECT * FROM trips WHERE trip_id = $trip1_id");
+    $trip1Stmt = mysqli_prepare($con, "SELECT * FROM trips WHERE trip_id = ?");
+    mysqli_stmt_bind_param($trip1Stmt, "i", $trip1_id);
+    mysqli_stmt_execute($trip1Stmt);
+    $q1 = mysqli_stmt_get_result($trip1Stmt);
     $trip1 = mysqli_fetch_assoc($q1);
+    mysqli_stmt_close($trip1Stmt);
 }
 if($trip2_id > 0) {
-    $q2 = mysqli_query($con, "SELECT * FROM trips WHERE trip_id = $trip2_id");
+    $trip2Stmt = mysqli_prepare($con, "SELECT * FROM trips WHERE trip_id = ?");
+    mysqli_stmt_bind_param($trip2Stmt, "i", $trip2_id);
+    mysqli_stmt_execute($trip2Stmt);
+    $q2 = mysqli_stmt_get_result($trip2Stmt);
     $trip2 = mysqli_fetch_assoc($q2);
+    mysqli_stmt_close($trip2Stmt);
 }
 ?>
 

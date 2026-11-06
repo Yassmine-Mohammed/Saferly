@@ -6,19 +6,29 @@ require_once"../includes/login_check.php";
 checklogin();
 $user_id = intval($_SESSION['user']['user_id']);
 $trip_id = isset($_GET['trip_id']) ? intval($_GET['trip_id']) : 0;
+if ($user_id <= 0) {
+    http_response_code(400);
+    exit("Invalid user ID.");
+}
 // عند تأكيد الحجز
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $trip_id > 0) {
     // محاولة الإدخال مع الأعمدة الأساسية الشائعة
-    $sql = "INSERT INTO bookings (user_id, trip_id, booking_date) VALUES ('$user_id', '$trip_id', NOW())";
-    
-    if (mysqli_query($con, $sql)) {
+    $stmt = mysqli_prepare($con, "INSERT INTO bookings (user_id, trip_id, booking_date) VALUES (?, ?, NOW())");
+    mysqli_stmt_bind_param($stmt, "ii", $user_id, $trip_id);
+    $bookingCreated = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    if ($bookingCreated) {
         // التوجيه إلى صفحة الهوم بعد النجاح
-        header("Location: ../search/index.php");
+        header("Location: ../index.php");
         exit();
     } else {
         // لو جدول البوكنج فيه أعمدة تانية إجبارية زي status أو total_price
-        $sql_alt = "INSERT INTO bookings (user_id, trip_id) VALUES ('$user_id', '$trip_id')";
-        if (mysqli_query($con, $sql_alt)) {
+        $fallbackStmt = mysqli_prepare($con, "INSERT INTO bookings (user_id, trip_id) VALUES (?, ?)");
+        mysqli_stmt_bind_param($fallbackStmt, "ii", $user_id, $trip_id);
+        $fallbackBookingCreated = mysqli_stmt_execute($fallbackStmt);
+        mysqli_stmt_close($fallbackStmt);
+        if ($fallbackBookingCreated) {
             // التوجيه إلى صفحة تفاصيل الرحلة بعد النجاح
             header("Location: trip_details.php?id=" . $trip_id);
             exit();

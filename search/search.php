@@ -4,20 +4,37 @@ require_once("../config/db.php");
 
 //  index بناء استعلام البحث بناءً على البيانات القادمة من الـ 
 $where_clauses = ["status = 'active'"];
+$query_params = [];
+$query_types = "";
 
 if (isset($_GET['destination']) && !empty($_GET['destination'])) {
-    $destination = mysqli_real_escape_string($con, $_GET['destination']);
-    $where_clauses[] = "(destination LIKE '%$destination%' OR trip_name LIKE '%$destination%')";
+    $destination = "%" . $_GET['destination'] . "%";
+    $where_clauses[] = "(destination LIKE ? OR trip_name LIKE ?)";
+    $query_params[] = $destination;
+    $query_params[] = $destination;
+    $query_types .= "ss";
     }
     if (isset($_GET['start_date']) && !empty($_GET['start_date'])) {
-        $start_date = mysqli_real_escape_string($con, $_GET['start_date']);
-    $where_clauses[] = "start_date >= '$start_date'";
+        $start_date = $_GET['start_date'];
+    $where_clauses[] = "start_date >= ?";
+    $query_params[] = $start_date;
+    $query_types .= "s";
     }
     
     // تجميع الشروط
     $where_sql = implode(" AND ", $where_clauses);
     $query = "SELECT * FROM trips WHERE $where_sql ORDER BY start_date ASC";
-    $res = mysqli_query($con, $query);
+    $stmt = mysqli_prepare($con, $query);
+    if ($query_params) {
+        $bind_params = [$stmt, $query_types];
+        foreach (array_keys($query_params) as $index) {
+            $bind_params[] = &$query_params[$index];
+        }
+        call_user_func_array("mysqli_stmt_bind_param", $bind_params);
+    }
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
 
 ?>
 
@@ -61,7 +78,7 @@ if (isset($_GET['destination']) && !empty($_GET['destination'])) {
             <?php else: ?>
                 <div style="text-align: center; padding: 50px; background: #fff; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
                     <h2 style="color: #555;">No trips found matching your search.</h2>
-                    <a href="index.php" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: #000; color: #fff; text-decoration: none; border-radius: 20px;">Go Back</a>
+                    <a href="../index.php" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: #000; color: #fff; text-decoration: none; border-radius: 20px;">Go Back</a>
                 </div>
             <?php endif; ?>
 

@@ -15,10 +15,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //check not duplicated data (candy kies) for users
         //check email
-        $emailCheck = mysqli_query($con, "SELECT user_id FROM users WHERE email='$email'");
+        $emailCheckStmt = mysqli_prepare($con, "SELECT user_id FROM users WHERE email = ?");
+        mysqli_stmt_bind_param($emailCheckStmt, "s", $email);
+        mysqli_stmt_execute($emailCheckStmt);
+        $emailCheck = mysqli_stmt_get_result($emailCheckStmt);
+        mysqli_stmt_close($emailCheckStmt);
 
         //check phone
-        $phoneCheck = mysqli_query($con, "SELECT user_id FROM users WHERE phone='$phoneno'");
+        $phoneCheckStmt = mysqli_prepare($con, "SELECT user_id FROM users WHERE phone = ?");
+        mysqli_stmt_bind_param($phoneCheckStmt, "s", $phoneno);
+        mysqli_stmt_execute($phoneCheckStmt);
+        $phoneCheck = mysqli_stmt_get_result($phoneCheckStmt);
+        mysqli_stmt_close($phoneCheckStmt);
 
         if (mysqli_num_rows($emailCheck) > 0) {
 
@@ -31,8 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
             //Query
-            $query = "INSERT INTO `users`(`name`, `email`, `password`, `phone`, `created_at`) VALUES ('$username','$email','$password','$phoneno','$date')";
-            $result = mysqli_query($con, $query);
+            $insertStmt = mysqli_prepare(
+                $con,
+                "INSERT INTO `users`(`name`, `email`, `password`, `phone`, `created_at`) VALUES (?, ?, ?, ?, ?)"
+            );
+            mysqli_stmt_bind_param($insertStmt, "sssss", $username, $email, $password, $phoneno, $date);
+            mysqli_stmt_execute($insertStmt);
+            mysqli_stmt_close($insertStmt);
 
             //move to login page
             header("Location: login.php");
@@ -49,16 +62,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //check not duplicated data (candy kies) for companies
         //check email
-        $emailCheck = mysqli_query(
-            $con,
-            "SELECT company_id FROM companies WHERE email='$Co_email'"
-        );
+        $emailCheckStmt = mysqli_prepare($con, "SELECT company_id FROM companies WHERE email = ?");
+        mysqli_stmt_bind_param($emailCheckStmt, "s", $Co_email);
+        mysqli_stmt_execute($emailCheckStmt);
+        $emailCheck = mysqli_stmt_get_result($emailCheckStmt);
+        mysqli_stmt_close($emailCheckStmt);
 
         //check taxno
-        $taxCheck = mysqli_query(
-            $con,
-            "SELECT company_id FROM companies WHERE tax_number='$Co_taxno'"
-        );
+        $taxCheckStmt = mysqli_prepare($con, "SELECT company_id FROM companies WHERE tax_number = ?");
+        mysqli_stmt_bind_param($taxCheckStmt, "s", $Co_taxno);
+        mysqli_stmt_execute($taxCheckStmt);
+        $taxCheck = mysqli_stmt_get_result($taxCheckStmt);
+        mysqli_stmt_close($taxCheckStmt);
 
         if (mysqli_num_rows($emailCheck) > 0) {
 
@@ -70,8 +85,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         } else {
             //Query
-            $query = "INSERT INTO `companies`(`name`, `email`, `password`, `tax_number`) VALUES ('$Co_name','$Co_email','$Co_password','$Co_taxno')";
-            $result = mysqli_query($con, $query);
+            $insertStmt = mysqli_prepare(
+                $con,
+                "INSERT INTO `companies`(`name`, `email`, `password`, `tax_number`) VALUES (?, ?, ?, ?)"
+            );
+            mysqli_stmt_bind_param($insertStmt, "ssss", $Co_name, $Co_email, $Co_password, $Co_taxno);
+            mysqli_stmt_execute($insertStmt);
+            mysqli_stmt_close($insertStmt);
 
             //move to login page
             header("Location: login.php");
@@ -97,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="bg-image"></div>
 
     <div class="logo text-center justify-content-center">
-        <a href="../search/index.php">
+        <a href="../index.php">
             <img src="images/SaferlyLogo.png" width="200px" alt="logo">
             <img src="images/NameWithSlugan.png" width="350px" alt="name and slogan">
         </a>

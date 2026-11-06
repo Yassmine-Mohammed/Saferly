@@ -1,7 +1,8 @@
+<?php require_once __DIR__ . "/functions.php"; ?>
 <footer>
     <div class="logo">
-            <a href="../search//index.php">
-                <img src="../includes/images/logo.png" alt="Safarly Logo">
+            <a href="<?= htmlspecialchars(app_url(), ENT_QUOTES, 'UTF-8') ?>">
+                <img src="<?= htmlspecialchars(app_url('includes/images/logo.png'), ENT_QUOTES, 'UTF-8') ?>" alt="Safarly Logo">
             </a>
         </div>
     <div class="contact">

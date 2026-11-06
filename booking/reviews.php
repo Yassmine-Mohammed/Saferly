@@ -13,15 +13,22 @@ if ($user_query && mysqli_num_rows($user_query) > 0) {
     $default_user_id = 1;
 }
 
-$user_id = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : $default_user_id;
+$user_id = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : intval($default_user_id);
+if ($user_id <= 0) {
+    http_response_code(400);
+    exit("Invalid user ID.");
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['comment'])) {
-    $comment = mysqli_real_escape_string($con, $_POST['comment']);
+    $comment = $_POST['comment'];
     $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 5;
 
-    $sql = "INSERT INTO reviews (user_id, trip_id, rating, comment) VALUES ('$user_id', '$trip_id', '$rating', '$comment')";
+    $reviewStmt = mysqli_prepare($con, "INSERT INTO reviews (user_id, trip_id, rating, comment) VALUES (?, ?, ?, ?)");
+    mysqli_stmt_bind_param($reviewStmt, "iiis", $user_id, $trip_id, $rating, $comment);
+    $reviewInserted = mysqli_stmt_execute($reviewStmt);
+    mysqli_stmt_close($reviewStmt);
     
-    if (mysqli_query($con, $sql)) {
+    if ($reviewInserted) {
         echo "<script>window.location.href = 'reviews.php?trip_id=$trip_id';</script>";
         exit();
     } else {
@@ -117,8 +124,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['comment'])) {
     <h3>All Reviews:</h3>
     <div class="reviews-list" style="margin-top: 10px;">
         <?php
-        $rev_sql = "SELECT * FROM reviews WHERE trip_id = $trip_id";
-        $rev_result = mysqli_query($con, $rev_sql);
+        $reviewsStmt = mysqli_prepare($con, "SELECT * FROM reviews WHERE trip_id = ?");
+        mysqli_stmt_bind_param($reviewsStmt, "i", $trip_id);
+        mysqli_stmt_execute($reviewsStmt);
+        $rev_result = mysqli_stmt_get_result($reviewsStmt);
+        mysqli_stmt_close($reviewsStmt);
         
         if ($rev_result && mysqli_num_rows($rev_result) > 0) {
             while ($row = mysqli_fetch_assoc($rev_result)) {
@@ -138,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['comment'])) {
 
     <!-- زر الرجوع للرئيسية -->
     <div style="margin-top: 20px;">
-        <a href="index.php" style="color: #ff8c00; text-decoration: underline;">Back to Home</a>
+        <a href="../index.php" style="color: #ff8c00; text-decoration: underline;">Back to Home</a>
     </div>
 </div>
 

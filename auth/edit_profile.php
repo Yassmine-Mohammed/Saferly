@@ -11,22 +11,33 @@ $error = "";
 
 if (isset($_POST['submit']) && $_POST['submit'] == 'Update') {
 
-    $fname = mysqli_real_escape_string($con, $_POST["user_Fname"]);
-    $lname = mysqli_real_escape_string($con, $_POST["user_Lname"]);
+    $fname = $_POST["user_Fname"];
+    $lname = $_POST["user_Lname"];
     $username = $fname . " " . $lname;
-    $phoneno = mysqli_real_escape_string($con, $_POST["user_phone"]);
-    $email = mysqli_real_escape_string($con, $_POST["user_email"]);
+    $phoneno = $_POST["user_phone"];
+    $email = $_POST["user_email"];
     $password = $_POST['user_password'];
 
     // نتأكد إن الإيميل والتليفون مش مستخدمين من حد تاني
-    $emailCheck = mysqli_query($con, "SELECT user_id FROM users WHERE email='$email' AND user_id != '$id'");
-    $phoneCheck = mysqli_query($con, "SELECT user_id FROM users WHERE phone='$phoneno' AND user_id != '$id'");
+    $emailCheckStmt = mysqli_prepare($con, "SELECT user_id FROM users WHERE email = ? AND user_id != ?");
+    mysqli_stmt_bind_param($emailCheckStmt, "si", $email, $id);
+    mysqli_stmt_execute($emailCheckStmt);
+    $emailCheck = mysqli_stmt_get_result($emailCheckStmt);
+    $emailAlreadyRegistered = mysqli_num_rows($emailCheck) > 0;
+    mysqli_stmt_close($emailCheckStmt);
 
-    if (mysqli_num_rows($emailCheck) > 0) {
+    $phoneCheckStmt = mysqli_prepare($con, "SELECT user_id FROM users WHERE phone = ? AND user_id != ?");
+    mysqli_stmt_bind_param($phoneCheckStmt, "si", $phoneno, $id);
+    mysqli_stmt_execute($phoneCheckStmt);
+    $phoneCheck = mysqli_stmt_get_result($phoneCheckStmt);
+    $phoneAlreadyRegistered = mysqli_num_rows($phoneCheck) > 0;
+    mysqli_stmt_close($phoneCheckStmt);
+
+    if ($emailAlreadyRegistered) {
 
         $error = "This Email is already registered.";
 
-    } elseif (mysqli_num_rows($phoneCheck) > 0) {
+    } elseif ($phoneAlreadyRegistered) {
 
         $error = "This Phone is already registered.";
 
@@ -50,28 +61,44 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Update') {
         // نبني جزء الـ SET ديناميك حسب اللي المستخدم غيّره فعلًا
         //عشان لو مثلا مغيرش غير الاسم بس مبعملش الباقي null والدنيا تخرب !
 
-        $setParts = [];
-        $setParts[] = "name = '$username'";
-        $setParts[] = "phone = '$phoneno'";
-        $setParts[] = "email = '$email'";
+        $setParts = ["name = ?", "phone = ?", "email = ?"];
+        $updateValues = [$username, $phoneno, $email];
+        $updateTypes = "sss";
 
         if (!empty($password)) {
             $hashed = password_hash($password, PASSWORD_DEFAULT);
-            $setParts[] = "password = '$hashed'";
+            $setParts[] = "password = ?";
+            $updateValues[] = $hashed;
+            $updateTypes .= "s";
         }
 
         if ($image_added) {
             $imageName = basename($destination);
-            $setParts[] = "image = '$imageName'";
+            $setParts[] = "image = ?";
+            $updateValues[] = $imageName;
+            $updateTypes .= "s";
         }
 
-        $query = "UPDATE users SET " . implode(", ", $setParts) . " WHERE user_id = '$id' LIMIT 1";
-        $result = mysqli_query($con, $query);
+        $query = "UPDATE users SET " . implode(", ", $setParts) . " WHERE user_id = ? LIMIT 1";
+        $updateValues[] = $id;
+        $updateTypes .= "i";
+
+        $updateStmt = mysqli_prepare($con, $query);
+        $bindParams = [$updateStmt, $updateTypes];
+        foreach (array_keys($updateValues) as $index) {
+            $bindParams[] = &$updateValues[$index];
+        }
+        call_user_func_array("mysqli_stmt_bind_param", $bindParams);
+        $result = mysqli_stmt_execute($updateStmt);
+        mysqli_stmt_close($updateStmt);
 
         if ($result) {
-            $selectQuery = "SELECT * FROM users WHERE user_id = '$id' LIMIT 1";
-            $selectResult = mysqli_query($con, $selectQuery);
+            $selectStmt = mysqli_prepare($con, "SELECT * FROM users WHERE user_id = ? LIMIT 1");
+            mysqli_stmt_bind_param($selectStmt, "i", $id);
+            mysqli_stmt_execute($selectStmt);
+            $selectResult = mysqli_stmt_get_result($selectStmt);
             $row = mysqli_fetch_assoc($selectResult);
+            mysqli_stmt_close($selectStmt);
             $_SESSION["user"] = $row;
 
             header("Location: profile.php");

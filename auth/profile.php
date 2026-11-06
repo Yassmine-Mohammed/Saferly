@@ -5,19 +5,32 @@ require_once("../config/db.php");
 require_once "../includes/login_check.php";
 checkLogin();
 
-$userId = $_SESSION['user']['user_id'];
+$userId = filter_var($_SESSION['user']['user_id'] ?? null, FILTER_VALIDATE_INT);
+if ($userId === false || $userId <= 0) {
+    http_response_code(400);
+    exit("Invalid user ID.");
+}
 //===========================
 // Delete Profile
 //===========================
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     
-    $userId = mysqli_real_escape_string($con, $userId);
-
     // نمسح كل الصفوف المرتبطة بالمستخدم في الجداول التانية الأول
     // عشان مانكسرش foreign key لما نمسح المستخدم نفسه
-    mysqli_query($con, "DELETE FROM bookings WHERE user_id = '$userId'");
-    mysqli_query($con, "DELETE FROM reviews WHERE user_id = '$userId'");
-    mysqli_query($con, "DELETE FROM favorites WHERE user_id = '$userId'");
+    $deleteBookingsStmt = mysqli_prepare($con, "DELETE FROM bookings WHERE user_id = ?");
+    mysqli_stmt_bind_param($deleteBookingsStmt, "i", $userId);
+    mysqli_stmt_execute($deleteBookingsStmt);
+    mysqli_stmt_close($deleteBookingsStmt);
+
+    $deleteReviewsStmt = mysqli_prepare($con, "DELETE FROM reviews WHERE user_id = ?");
+    mysqli_stmt_bind_param($deleteReviewsStmt, "i", $userId);
+    mysqli_stmt_execute($deleteReviewsStmt);
+    mysqli_stmt_close($deleteReviewsStmt);
+
+    $deleteFavoritesStmt = mysqli_prepare($con, "DELETE FROM favorites WHERE user_id = ?");
+    mysqli_stmt_bind_param($deleteFavoritesStmt, "i", $userId);
+    mysqli_stmt_execute($deleteFavoritesStmt);
+    mysqli_stmt_close($deleteFavoritesStmt);
 
     // نمسح صورة البروفايل من السيرفر لو مش الصورة الافتراضية
     if (!empty($_SESSION['user']['image']) && $_SESSION['user']['image'] !== 'default.png') {
@@ -28,7 +41,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     }
 
     // نمسح المستخدم نفسه
-    $deleteUser = mysqli_query($con, "DELETE FROM users WHERE user_id = '$userId' LIMIT 1");
+    $deleteUserStmt = mysqli_prepare($con, "DELETE FROM users WHERE user_id = ? LIMIT 1");
+    mysqli_stmt_bind_param($deleteUserStmt, "i", $userId);
+    $deleteUser = mysqli_stmt_execute($deleteUserStmt);
+    mysqli_stmt_close($deleteUserStmt);
 
     if ($deleteUser) {
         // ننهي الجلسة ونرجّعه لصفحة تسجيل الدخول
@@ -46,12 +62,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 //===========================
 // User Profile Data
 //===========================
-$userId = $_SESSION['user']['user_id'];
+$userId = filter_var($_SESSION['user']['user_id'] ?? null, FILTER_VALIDATE_INT);
 
-$query = "SELECT * FROM users WHERE user_id = '$userId'";
-$result = mysqli_query($con, $query);
+$profileStmt = mysqli_prepare($con, "SELECT * FROM users WHERE user_id = ?");
+mysqli_stmt_bind_param($profileStmt, "i", $userId);
+mysqli_stmt_execute($profileStmt);
+$result = mysqli_stmt_get_result($profileStmt);
 
 $row = mysqli_fetch_assoc($result);
+mysqli_stmt_close($profileStmt);
 
 ?>
 <!DOCTYPE html>

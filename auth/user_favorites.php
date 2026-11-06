@@ -3,17 +3,25 @@ session_start();
 require_once("../config/db.php");
 require_once "../includes/login_check.php";
 checkLogin();
-$userId = $_SESSION['user']['user_id'];
+$userId = filter_var($_SESSION['user']['user_id'] ?? null, FILTER_VALIDATE_INT);
+if ($userId === false || $userId <= 0) {
+    http_response_code(400);
+    exit("Invalid user ID.");
+}
 
 $sql = "SELECT f.trip_id, t.trip_name, t.destination, t.image, 
                t.price, c.name, f.created_at
         FROM favorites f
         JOIN trips t ON f.trip_id = t.trip_id
         JOIN companies c ON t.company_id = c.company_id
-        WHERE f.user_id = $userId
+        WHERE f.user_id = ?
         ORDER BY f.created_at DESC";
 
-$res = mysqli_query($con, $sql);
+$stmt = mysqli_prepare($con, $sql);
+mysqli_stmt_bind_param($stmt, "i", $userId);
+mysqli_stmt_execute($stmt);
+$res = mysqli_stmt_get_result($stmt);
+mysqli_stmt_close($stmt);
 if (!$res) {
     die("Query Error: " . mysqli_error($con));
 }

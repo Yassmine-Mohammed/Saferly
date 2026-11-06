@@ -9,7 +9,11 @@ require_once("../config/db.php");
 require_once "../includes/login_check.php";
 checkLogin();
 
-$userId = $_SESSION['user']['user_id'];
+$userId = filter_var($_SESSION['user']['user_id'] ?? null, FILTER_VALIDATE_INT);
+if ($userId === false || $userId <= 0) {
+    http_response_code(400);
+    exit("Invalid user ID.");
+}
 
 $sql = "SELECT
     b.booking_id AS booking_id,
@@ -26,10 +30,14 @@ $sql = "SELECT
 FROM bookings b
 JOIN trips t ON b.trip_id = t.trip_id
 JOIN companies c ON t.company_id = c.company_id
-WHERE b.user_id = $userId
+WHERE b.user_id = ?
 ORDER BY b.booking_date DESC";
 
-$res = mysqli_query($con, $sql);
+$stmt = mysqli_prepare($con, $sql);
+mysqli_stmt_bind_param($stmt, "i", $userId);
+mysqli_stmt_execute($stmt);
+$res = mysqli_stmt_get_result($stmt);
+mysqli_stmt_close($stmt);
 ?>
 <!DOCTYPE html>
 <html lang="en">

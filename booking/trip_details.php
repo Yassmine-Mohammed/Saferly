@@ -4,8 +4,11 @@ require "../config/db.php";
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : (isset($_GET['trip_id']) ? intval($_GET['trip_id']) : 0);
 
-$sql = "SELECT * FROM trips WHERE trip_id = $id";
-$result = mysqli_query($con, $sql);
+$stmt = mysqli_prepare($con, "SELECT * FROM trips WHERE trip_id = ?");
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+mysqli_stmt_close($stmt);
 
 if (!$result) {
     die("SQL Error: " . mysqli_error($con));

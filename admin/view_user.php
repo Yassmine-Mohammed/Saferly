@@ -3,14 +3,19 @@
 include("../config/db.php");
 
 
-$id = $_GET['id'];
+$id = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT);
+if ($id === false || $id <= 0) {
+    http_response_code(400);
+    exit("Invalid user ID.");
+}
 
 
-$query = "SELECT * FROM users WHERE user_id = $id";
-
-$result = mysqli_query($con, $query);
-
+$stmt = mysqli_prepare($con, "SELECT * FROM users WHERE user_id = ?");
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 $user = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
 
 
 ?>

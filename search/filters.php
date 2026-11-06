@@ -7,27 +7,48 @@ include("../includes/header.php");
 
 // بناء استعلام البحث بناءً على الفلاتر
 $where_clauses = ["status = 'active'"];
+$query_params = [];
+$query_types = "";
 
 if (isset($_GET['destination']) && !empty($_GET['destination'])) {
-    $destination = mysqli_real_escape_string($con, $_GET['destination']);
-    $where_clauses[] = "(destination LIKE '%$destination%' OR trip_name LIKE '%$destination%')";
+    $destination = "%" . $_GET['destination'] . "%";
+    $where_clauses[] = "(destination LIKE ? OR trip_name LIKE ?)";
+    $query_params[] = $destination;
+    $query_params[] = $destination;
+    $query_types .= "ss";
 }
 if (isset($_GET['min_price']) && !empty($_GET['min_price'])) {
     $min_price = (float)$_GET['min_price'];
-    $where_clauses[] = "price >= $min_price";
+    $where_clauses[] = "price >= ?";
+    $query_params[] = $min_price;
+    $query_types .= "d";
 }
 if (isset($_GET['max_price']) && !empty($_GET['max_price'])) {
     $max_price = (float)$_GET['max_price'];
-    $where_clauses[] = "price <= $max_price";
+    $where_clauses[] = "price <= ?";
+    $query_params[] = $max_price;
+    $query_types .= "d";
 }
 if (isset($_GET['category']) && !empty($_GET['category'])) {
-    $category = mysqli_real_escape_string($con, $_GET['category']);
-    $where_clauses[] = "category = '$category'";
+    $category = $_GET['category'];
+    $where_clauses[] = "category = ?";
+    $query_params[] = $category;
+    $query_types .= "s";
 }
 
 $where_sql = implode(" AND ", $where_clauses);
 $query = "SELECT * FROM trips WHERE $where_sql ORDER BY start_date ASC";
-$result = mysqli_query($con, $query);
+$stmt = mysqli_prepare($con, $query);
+if ($query_params) {
+    $bind_params = [$stmt, $query_types];
+    foreach (array_keys($query_params) as $index) {
+        $bind_params[] = &$query_params[$index];
+    }
+    call_user_func_array("mysqli_stmt_bind_param", $bind_params);
+}
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+mysqli_stmt_close($stmt);
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,0 +1,150 @@
+<?php
+session_start();
+require_once __DIR__ . "/config/db.php";
+require_once __DIR__ . "/includes/functions.php";
+$userId = $_SESSION['user']['user_id'] ?? null;
+
+
+//  أحدث الرحلات
+$trips_query = "SELECT * FROM trips WHERE status = 'active'";
+$trips_result = mysqli_query($con, $trips_query);
+
+//  آراء العملاء (التقييمات) مع اسم المستخدم
+$reviews_query = "SELECT reviews.*, users.name AS user_name 
+                  FROM reviews 
+                  JOIN users ON reviews.user_id = users.user_id 
+                  ORDER BY reviews.created_at DESC LIMIT 5";
+$reviews_result = mysqli_query($con, $reviews_query);
+
+include __DIR__ . "/includes/header.php";
+?>
+
+<link rel="stylesheet" href="<?= htmlspecialchars(app_url('search/CSS/search.css'), ENT_QUOTES, 'UTF-8') ?>">
+<link rel="stylesheet" href="<?= htmlspecialchars(app_url('includes/CSS/includes.css'), ENT_QUOTES, 'UTF-8') ?>">
+
+<main>
+    <div class="content1">
+        <h1 class="main-heading container">Make it<br>your journey...</h1>
+        <p class="sub-text container">Explore the world with what you love beautiful natural beauty.</p>
+        <div class="form-data container">
+            <!-- توجيه الفورم لصفحة search.php باستخدام طريقة GET -->
+            <form action="<?= htmlspecialchars(app_url('search/search.php'), ENT_QUOTES, 'UTF-8') ?>" method="GET">
+                <input type="text" class="location" name="destination" placeholder="Where to ?">
+                <input type="date" class="date" name="start_date">
+                <input type="number" class="adult" name="adult" min="1" max="10" placeholder="Adult">
+                <input type="number" class="child" name="child" min="0" max="10" placeholder="Child">
+                <button type="submit">Explore now</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="content2 container">
+        <div class="section-header">
+            <h2>Explore new worlds with<br>exotic natural scenery</h2>
+            <p>Explore the world with what you love beautiful natural beauty.</p>
+        </div>
+        <div class="nav-btn-card">
+
+            <div class="suggestions">
+                <?php while ($trip = mysqli_fetch_assoc($trips_result)): ?>
+                    <div class="place-card">
+                        <img src="<?= htmlspecialchars(app_url('assets/images/' . $trip['image']), ENT_QUOTES, 'UTF-8') ?>" alt="Trip"
+                            style="width:100%; height:100px; object-fit:cover; border-radius:15px 15px 0 0;">
+                        <div style="padding: 15px; font-size:16px;">
+                            <h4 style="margin-bottom: 10px;"><?php echo htmlspecialchars($trip['trip_name']); ?></h4>
+                            <p><i class="fa-solid fa-location-dot"></i>
+                                <?php echo htmlspecialchars($trip['destination']); ?></p>
+                            <p><i class="fa-regular fa-clock"></i> <?php echo htmlspecialchars($trip['duration_days']); ?>
+                                Days</p>
+                            <p><i class="fa-solid fa-star" style="color: #f39c12;"></i>
+                                <?php echo htmlspecialchars($trip['hotel_level']); ?> Stars Hotel</p>
+                            <h4 style="margin-top: 10px; color: #27ae60;"><?php echo htmlspecialchars($trip['price']); ?>
+                                EGP</h4>
+                            <a href="<?= htmlspecialchars(app_url('booking/trip_details.php?id=' . (int) $trip['trip_id']), ENT_QUOTES, 'UTF-8') ?>"
+                                style="text-decoration: none;">
+                                <button type="button">View Details</button>
+                            </a>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="content3">
+        <div class="section-header">
+        <h2>Why Choose Us?</h2>
+        <p>our services have been trusted by world travelers</p>
+        </div>
+        <div class="trust-travel">
+            <div class="trust1">
+                <i class="fa-solid fa-people-group" style="font-size: 40px; margin: 25px 0;"></i>
+                <h3>Best Service</h3>
+                <p style="text-align: center; padding: 0 15px;">We are committed to providing exceptional customer
+                    support and a seamless travel experience from start to finish.</p>
+            </div>
+            <div class="trust2">
+                <i class="fa-solid fa-hand-holding-dollar" style="font-size: 40px; margin: 25px 0;"></i>
+                <h3>Price guarantee</h3>
+                <p style="text-align: center; padding: 0 15px;">Enjoy the best rates available. We ensure competitive
+                    pricing so you can travel without breaking the bank.</p>
+            </div>
+            <div class="trust3">
+                <i class="fa-solid fa-trophy" style="font-size: 40px; margin: 25px 0;"></i>
+                <h3>Handpicked Hotels</h3>
+                <p style="text-align: center; padding: 0 15px;">We carefully select and review all our accommodations to
+                    guarantee comfort, quality, and an unforgettable stay.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="clint-say container">
+        <div class="section-header">
+            <h2>TESTIMONIAL</h2>
+            <P>What Our Clients Say</ح>
+        </div>
+        <div class="nav-btn-card">
+
+            <div class="suggestions">
+                <!-- PHP لطباعة آراء العملاء -->
+                <?php while ($review = mysqli_fetch_assoc($reviews_result)): ?>
+                    <div class="place-card" style="padding: 20px; text-align: center; display: block;">
+                        <i class="fa-solid fa-quote-left" style="font-size: 35px; color: #ccc;"></i>
+                        <p style="margin-top: 15px; font-size: 16px; color: #555;">
+                            "<?php echo htmlspecialchars($review['comment']); ?>"</p>
+                        <h3 style="margin-top: 20px; color: #000; font-size: 20px;">
+                            <?php echo htmlspecialchars($review['user_name']); ?>
+                        </h3>
+                        <div style="color: #f39c12; margin-top: 5px;">
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                <?php if ($i <= $review['rating']): ?>
+                                    <i class="fa-solid fa-star"></i>
+                                <?php else: ?>
+                                    <i class="fa-regular fa-star"></i>
+                                <?php endif; ?>
+                            <?php endfor; ?>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+
+<?php include __DIR__ . "/includes/footer.php"; ?>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target); // يشتغل مرة واحدة بس
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.content2, .content3, .search-result, .place-card')
+        .forEach(el => observer.observe(el));
+</script>

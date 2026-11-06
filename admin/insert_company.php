@@ -8,13 +8,13 @@ $password = $_POST['password'];
 $tax_number = $_POST['tax_number'];
 
 
-$query = "
-INSERT INTO companies (name, email, password, tax_number, status)
-VALUES ('$name', '$email', '$password', '$tax_number', 'pending')
-";
-
-
-mysqli_query($con, $query);
+$stmt = mysqli_prepare(
+    $con,
+    "INSERT INTO companies (name, email, password, tax_number, status) VALUES (?, ?, ?, ?, 'pending')"
+);
+mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $password, $tax_number);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
 
 
 header("Location: manage_companies.php?success=company_added");

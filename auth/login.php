@@ -8,20 +8,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['user_email'];
 
 
-        $query = "SELECT * FROM users WHERE email = '$email'  LIMIT 1";
+        $stmt = mysqli_prepare($con, "SELECT * FROM users WHERE email = ? LIMIT 1");
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
 
-
-        $result = mysqli_query($con, $query);
-
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-
+        if ($row) {
             if (password_verify($_POST['user_password'], $row['password'])) {
                 $_SESSION['user'] = $row;
                 if ($row['role'] == 'admin') {
                     header("Location:../admin/dashboard.php");
                 } else {
-                    header("Location:../search/index.php");
+                    header("Location:../index.php");
                 }
                 exit();
             } else {
@@ -34,12 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['login_company'])) {
         $Co_email = $_POST['company_email'];
 
-        $query = "SELECT * FROM companies WHERE email = '$Co_email' LIMIT 1";
-        $result = mysqli_query($con, $query);
+        $stmt = mysqli_prepare($con, "SELECT * FROM companies WHERE email = ? LIMIT 1");
+        mysqli_stmt_bind_param($stmt, "s", $Co_email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
 
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-
+        if ($row) {
             if (password_verify($_POST['company_password'], $row['password'])) {
                 $_SESSION['company'] = $row;
                 header("Location:../company/dashboard.php");
@@ -67,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="bg-image"></div>
     <div class="logo text-center justify-content-center">
-        <a href="../search/index.php">
+        <a href="../index.php">
             <img src="images/SaferlyLogo.png" width="200px" alt="logo">
             <img src="images/NameWithSlugan.png" width="350px" alt="name and slogan">
         </a>

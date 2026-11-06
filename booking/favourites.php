@@ -11,12 +11,19 @@ if ($row_user = mysqli_fetch_assoc($user_result)) {
 }
 
 if (isset($_GET['trip_id'])) {
-    $trip_id = $_GET['trip_id'];
+    $trip_id = filter_var($_GET['trip_id'], FILTER_VALIDATE_INT);
+    if ($trip_id === false || $trip_id <= 0) {
+        http_response_code(400);
+        exit("Invalid trip ID.");
+    }
 
     // استخدام INSERT IGNORE لمنع تكرار الإيرور لو الرحلة مضافة مسبقاً
-    $sql = "INSERT IGNORE INTO favorites (user_id, trip_id) VALUES ($user_id, $trip_id)";
+    $stmt = mysqli_prepare($con, "INSERT IGNORE INTO favorites (user_id, trip_id) VALUES (?, ?)");
+    mysqli_stmt_bind_param($stmt, "ii", $user_id, $trip_id);
+    $result = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 
-    if (mysqli_query($con, $sql)) {
+    if ($result) {
         echo "<script>alert('Added to favorites successfully! ❤️'); window.location.href='../index.php';</script>";
     } else {
         echo "Error: " . mysqli_error($con);
